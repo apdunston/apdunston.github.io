@@ -1,0 +1,32 @@
+<canvas id="gc" width="400" height="400"></canvas>
+
+<script src="../engine/gamespace.js"></script>
+<script src="../engine/display.js"></script>
+<script src="../engine/drawableObject.js"></script>
+<script src="sparkle.js"></script>
+<script src="ring.js"></script>
+<script src="firework.js"></script>
+
+<script>
+window.onload=function() {
+  displaySpeed = 100;
+  canv=document.getElementById("gc");
+  display1 = new Gamespace.Display(canv, displaySpeed);
+  display1.setColor("black");
+
+  fire = function() {
+    display1.addObject(new Gamespace.Firework(display1.getLength()));
+  };
+
+  document.addEventListener("keydown", function() {fire();});
+  display1.start();
+}
+</script>
+
+<div>
+  <button onclick="javascript: fire()">Fire!</button>
+  <button onclick="javascript: display1.start()">Start</button>
+  <button onclick="javascript: display1.stop()">Stop</button>
+  <button onclick="javascript: display1.drawLoop()">Draw</button>
+  <button onclick="javascript: for(var i=0; i < 10; i++){ display1.drawLoop();}">Draw 10</button>
+</div>
