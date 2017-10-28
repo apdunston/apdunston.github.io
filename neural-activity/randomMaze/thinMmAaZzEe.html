@@ -33,12 +33,12 @@ var mazeGame;
 
 window.onload=function() {
   canv=document.getElementById("canvas1");
-  display1 = new Gamespace.Display(canv, 0);
+  display1 = new Display(canv, 0);
   display1.setColor("black");
 
   displaySpeed = 100;
   canv=document.getElementById("canvas2");
-  display2 = new Gamespace.Display(canv, displaySpeed);
+  display2 = new Display(canv, displaySpeed);
   display2.setColor("black");
 
   var squareLength, gridLength;

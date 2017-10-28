@@ -6,7 +6,7 @@ MazeGame.Player = function(gridLength, squareLength, game) {
   this.game = game;
   this.squareLength = squareLength;
   var size = squareLength - squareLength / 10;
-  this.square = new Gamespace.DrawableSquare(this.x * squareLength, this.y * squareLength, size, this.color);
+  this.square = new DrawableSquare(this.x * squareLength, this.y * squareLength, size, this.color);
 };
 
 MazeGame.Player.prototype.moveTo = function(x, y) {

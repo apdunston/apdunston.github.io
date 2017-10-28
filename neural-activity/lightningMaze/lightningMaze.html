@@ -35,13 +35,13 @@ var mazeGame;
 
 window.onload=function() {
   canv=document.getElementById("canvas1");
-  display1 = new Gamespace.LightningDisplay(canv, 100);
+  display1 = new LightningDisplay(canv, 100);
   display1.setColor("black");
   display1.start();
 
   displaySpeed = 100;
   canv=document.getElementById("canvas2");
-  display2 = new Gamespace.Display(canv, displaySpeed);
+  display2 = new Display(canv, displaySpeed);
   display2.setColor("black");
 
   var squareLength, gridLength;

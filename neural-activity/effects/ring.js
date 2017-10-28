@@ -1,4 +1,4 @@
-Gamespace.Ring = function(x, y, squareLength, offset, sparkleDuration) {
+Ring = function(x, y, squareLength, offset, sparkleDuration) {
   var i, sparkleSize, pixelsSmaller, colorIndex;
   this.x = x;
   this.y = y;
@@ -30,24 +30,24 @@ Gamespace.Ring = function(x, y, squareLength, offset, sparkleDuration) {
 
   for (i = 0; i < offset * 2 + 1; i += 1) {
     // top
-    this.sparkles.push(new Gamespace.Sparkle(applyOffset(x, i), moveToOneSide(y), sparkleSize, sparkleDuration, colorIndex));
+    this.sparkles.push(new Sparkle(applyOffset(x, i), moveToOneSide(y), sparkleSize, sparkleDuration, colorIndex));
     
     // bottom
-    this.sparkles.push(new Gamespace.Sparkle(applyOffset(x, i), moveToOtherSide(y), sparkleSize, sparkleDuration, colorIndex));
+    this.sparkles.push(new Sparkle(applyOffset(x, i), moveToOtherSide(y), sparkleSize, sparkleDuration, colorIndex));
 
     if (i > 0 && i <= offset * 2 - 1) {
       newY = applyOffset(y, i) - 1;
       // left
-      this.sparkles.push(new Gamespace.Sparkle(moveToOneSide(x), applyOffset(y, i), sparkleSize, sparkleDuration, colorIndex));
+      this.sparkles.push(new Sparkle(moveToOneSide(x), applyOffset(y, i), sparkleSize, sparkleDuration, colorIndex));
 
       // right
-      this.sparkles.push(new Gamespace.Sparkle(moveToOtherSide(x), applyOffset(y, i), sparkleSize, sparkleDuration, colorIndex));
+      this.sparkles.push(new Sparkle(moveToOtherSide(x), applyOffset(y, i), sparkleSize, sparkleDuration, colorIndex));
     }
   }
 }
 
 
-Gamespace.Ring.prototype.draw = function(canvas, context) {
+Ring.prototype.draw = function(canvas, context) {
   this.isDoneValue = true;
   for (var i = 0; i < this.sparkles.length; i += 1) {
     if (!this.sparkles[i].isDone()) {
@@ -57,6 +57,6 @@ Gamespace.Ring.prototype.draw = function(canvas, context) {
   }
 };
 
-Gamespace.Ring.prototype.isDone = function() {
+Ring.prototype.isDone = function() {
   return this.isDoneValue;
 };

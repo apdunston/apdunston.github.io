@@ -1,0 +1,8 @@
+{
+  "name": "neural-activity",
+  "version": "0.0.1",
+  "bin": "",
+  "scripts": {
+      "test": "mocha"
+  }
+}

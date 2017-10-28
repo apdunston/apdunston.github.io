@@ -47,5 +47,5 @@ MazeGame.prototype.drawLoop = function() {
 };
 
 MazeGame.prototype.firework = function() {
-  display2.addObject(new Gamespace.Firework(display2.getLength()));
+  display2.addObject(new Firework(display2.getLength()));
 };

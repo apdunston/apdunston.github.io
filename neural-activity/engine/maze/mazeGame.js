@@ -16,7 +16,7 @@ MazeGame.prototype.newMaze = function() {
   var goalSquareLocation = this.gridLength * this.squareLength - this.squareLength / 2;
   this.maze = new MazeGame.ThinMaze(this.drawMap, this.squareLength);
   this.player = new MazeGame.Player(this.gridLength, this.squareLength, this);
-  this.goalObject = new Gamespace.DrawableCircle(goalSquareLocation, goalSquareLocation, this.squareLength / 4, "green");  
+  this.goalObject = new DrawableCircle(goalSquareLocation, goalSquareLocation, this.squareLength / 4, "green");  
   this.clearDisplays();
 }
 
@@ -85,5 +85,5 @@ MazeGame.prototype.win = function() {
 }
 
 MazeGame.prototype.firework = function() {
-  this.neuralDisplay.addObject(new Gamespace.Firework(this.neuralDisplay.getLength()));
+  this.neuralDisplay.addObject(new Firework(this.neuralDisplay.getLength()));
 };

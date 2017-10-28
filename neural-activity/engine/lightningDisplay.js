@@ -1,7 +1,7 @@
 /**
  * The first object added (not the background) is only drawn as lightning flashes.
  */
-Gamespace.LightningDisplay = function(canvas, framesPerSecond) {
+LightningDisplay = function(canvas, framesPerSecond) {
   "use strict";
   this.flashProgressions = [
     [190],
@@ -17,23 +17,23 @@ Gamespace.LightningDisplay = function(canvas, framesPerSecond) {
   this.objects = [];
   this.lightningObjects = [];
   this.currentAlpha = 1.0;
-  this.backgroundObject = new Gamespace.DrawableSquare(0, 0, canvas.width, this.color);
+  this.backgroundObject = new DrawableSquare(0, 0, canvas.width, this.color);
   this.addObject(this.backgroundObject);
   this.resetLightning();
 };
 
 // Explicit Inheritance
-Gamespace.LightningDisplay.prototype = Object.create(Gamespace.Display.prototype);
-Gamespace.LightningDisplay.prototype.constructor = Gamespace.Display;
+LightningDisplay.prototype = Object.create(Display.prototype);
+LightningDisplay.prototype.constructor = Display;
 
-Gamespace.Display.prototype.clear = function() {
+Display.prototype.clear = function() {
   this.lightningObjects = [];
   this.objects = [];
   this.addObject(this.backgroundObject);
 };
 
 
-Gamespace.LightningDisplay.prototype.drawLoop = function() {
+LightningDisplay.prototype.drawLoop = function() {
   var x;
   this.objects[0].draw(this.canvas, this.context);
 
@@ -53,7 +53,7 @@ Gamespace.LightningDisplay.prototype.drawLoop = function() {
   }
 };
 
-Gamespace.LightningDisplay.prototype.advanceLightning = function() {
+LightningDisplay.prototype.advanceLightning = function() {
     this.currentFlashFrame += 1;
     this.drawLightning();
 
@@ -66,12 +66,12 @@ Gamespace.LightningDisplay.prototype.advanceLightning = function() {
     }
 }
 
-Gamespace.LightningDisplay.prototype.grabFlashFrames = function() {
+LightningDisplay.prototype.grabFlashFrames = function() {
   var index = Math.floor(Math.random() * this.flashProgressions.length);
   this.flashFrames = this.flashProgressions[index];
 }
 
-Gamespace.LightningDisplay.prototype.drawLightning = function() {
+LightningDisplay.prototype.drawLightning = function() {
   if (this.currentAlpha >= 1.0) {
     return;
   }
@@ -90,18 +90,18 @@ Gamespace.LightningDisplay.prototype.drawLightning = function() {
   this.currentAlpha += 0.01;
 }
 
-Gamespace.LightningDisplay.prototype.resetLightning = function() {
+LightningDisplay.prototype.resetLightning = function() {
       this.flashing = false;
       this.currentFlashFrame = 0;
 }
 
-Gamespace.LightningDisplay.prototype.goLightning = function() {
+LightningDisplay.prototype.goLightning = function() {
   var self = this;
   this.grabFlashFrames();
   this.currentAlpha = 0.0;
   this.flashing = true;
 }
 
-Gamespace.LightningDisplay.prototype.addFlashObject = function(object) {
+LightningDisplay.prototype.addFlashObject = function(object) {
   this.lightningObjects.push(object);
 }

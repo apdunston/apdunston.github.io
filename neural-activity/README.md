@@ -164,3 +164,11 @@ You can't communicate with it. You can create connections and watch it talk to i
 Must have `void draw(canvas, context)` and `bool isDone()`.
 
 
+## Testing
+
+`> npm test`
+
+Uses
+* requirejs - dependency management
+* mocha - unit test framework
+* simple-mock - test doubles

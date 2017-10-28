@@ -30,19 +30,19 @@
     $('canvas').attr('height', canvasLength).attr('width', canvasLength);
 
     canv=document.getElementById("canvas1");
-    display1 = new Gamespace.Display(canv, 0);
+    display1 = new Display(canv, 0);
     display1.setColor("black");
 
     canv=document.getElementById("canvas2");
-    display2 = new Gamespace.Display(canv, 0);
+    display2 = new Display(canv, 0);
     display2.setColor("black");
     display2.drawLoop();
     canv=document.getElementById("canvas3");
-    display3 = new Gamespace.Display(canv, fuzzDisplaySpeed);
+    display3 = new Display(canv, fuzzDisplaySpeed);
     display3.setColor("black");
     display3.start();
     canv=document.getElementById("canvas4");
-    display4 = new Gamespace.Display(canv, neuralDisplaySpeed);
+    display4 = new Display(canv, neuralDisplaySpeed);
     display4.setColor("black");
     display4.start();
 

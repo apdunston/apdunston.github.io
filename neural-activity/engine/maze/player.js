@@ -8,7 +8,7 @@ MazeGame.Player = function(gridLength, squareLength, game) {
   var shrinkage = 5;
   var size = squareLength - shrinkage;
   this.bump = shrinkage / 2;
-  this.square = new Gamespace.DrawableSquare(this.inPixels(this.x), this.inPixels(this.y), size, this.color);
+  this.square = new DrawableSquare(this.inPixels(this.x), this.inPixels(this.y), size, this.color);
 };
 
 MazeGame.Player.prototype.inPixels = function(value) {

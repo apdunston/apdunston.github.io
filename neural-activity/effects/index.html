@@ -11,11 +11,11 @@
 window.onload=function() {
   displaySpeed = 100;
   canv=document.getElementById("gc");
-  display1 = new Gamespace.Display(canv, displaySpeed);
+  display1 = new Display(canv, displaySpeed);
   display1.setColor("black");
 
   fire = function() {
-    display1.addObject(new Gamespace.Firework(display1.getLength()));
+    display1.addObject(new Firework(display1.getLength()));
   };
 
   document.addEventListener("keydown", function() {fire();});
