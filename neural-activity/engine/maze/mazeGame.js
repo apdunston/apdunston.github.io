@@ -1,16 +1,4 @@
 MazeGame = function() {
-  _clearDisplays = function(self) {
-    self.mazeDisplay.clear();
-    self.mazeDisplay.addObject(self.maze);
-    self.mazeDisplay.addObject(self.player);
-    self.mazeDisplay.addObject(self.goalObject);
-    _drawLoop(self);
-  }
-
-  _drawLoop = function(self) {
-    self.mazeDisplay.drawLoop();
-  }
-
   MazeGame = function(document, mazeDisplay, neuralDisplay, gridLength, squareLength) {
     var self = this;
     this.gridLength = gridLength;
@@ -23,6 +11,18 @@ MazeGame = function() {
     document.addEventListener("keydown",function(evt) {self.keyPush(evt)});
   }
 
+  MazeGame.prototype.drawLoop = function() {
+    this.mazeDisplay.drawLoop();
+  }
+
+  MazeGame.prototype.clearDisplays = function() {
+    this.mazeDisplay.clear();
+    this.mazeDisplay.addObject(this.maze);
+    this.mazeDisplay.addObject(this.player);
+    this.mazeDisplay.addObject(this.goalObject);
+    this.drawLoop();
+  }
+  
   MazeGame.prototype.reset = function() {
     this.won = false;
     this.map = MazeGame.generate(this.gridLength, this.gridLength);
@@ -31,7 +31,7 @@ MazeGame = function() {
     this.maze = new MazeGame.ThinMaze(this.drawMap, this.squareLength);
     this.player = new MazeGame.Player(this.gridLength, this.squareLength, this);
     this.goalObject = new DrawableCircle(goalSquareLocation, goalSquareLocation, this.squareLength / 4, "green");
-    _clearDisplays(this);
+    this.clearDisplays();
   }
 
   MazeGame.prototype.stop = function() {
@@ -69,7 +69,7 @@ MazeGame = function() {
         break;
     }
 
-    _drawLoop(this);
+    this.drawLoop();
 
     if(this.winCondition()) {
       this.win();

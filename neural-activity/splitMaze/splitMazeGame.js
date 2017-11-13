@@ -6,7 +6,7 @@ MazeGame.SplitMazeGame = function(document, mazeXDisplay, mazeYDisplay, neuralDi
   this.mazeXDisplay = mazeXDisplay;
   this.mazeYDisplay = mazeYDisplay;
   this.neuralDisplay = neuralDisplay;
-  this.newMaze();
+  this.reset();
   neuralDisplay.start();
   document.addEventListener("keydown",function(evt) {self.keyPush(evt)});
 };
@@ -47,5 +47,5 @@ MazeGame.SplitMazeGame.prototype.win = function() {
   var secondFlashDelay = 75;
   var firstFlashDuration = secondFlashDelay + secondFlashDuration;
   this.mazeXDisplay.flash("blue", firstFlashDuration, function() {});
-  setTimeout(function() {self.mazeYDisplay.flash("blue", secondFlashDuration, function() { self.newMaze(); });}, secondFlashDelay);
+  setTimeout(function() {self.mazeYDisplay.flash("blue", secondFlashDuration, function() { self.reset(); });}, secondFlashDelay);
 }

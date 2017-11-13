@@ -5,7 +5,7 @@ MazeGame.LightningMazeGame = function(document, mazeDisplay, neuralDisplay, grid
   this.squareLength = squareLength;
   this.mazeDisplay = mazeDisplay;
   this.neuralDisplay = neuralDisplay;
-  this.newMaze();
+  this.reset();
   neuralDisplay.start();
   document.addEventListener("keydown",function(evt) {self.keyPush(evt)});
 };
