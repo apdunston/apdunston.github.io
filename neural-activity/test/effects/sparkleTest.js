@@ -54,4 +54,10 @@ describe('Sparkle', function() {
       assert(!sparkle.isDone());
     });
   });
+
+  describe('#draw()', function() {
+    it('should not exceed max frame count');
+    it('should move y+ when not half done and y- when half done');
+    it('should set appropriate color');
+  });
 });

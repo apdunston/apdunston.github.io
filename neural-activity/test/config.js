@@ -7,9 +7,17 @@ requirejs.config({
     nodeRequire: require
 });
 
-requirejs(['../engine/gamespace.js', '../engine/drawableObject.js', '../effects/sparkle.js'],
-function   (foo,   bar) {
-    //foo and bar are loaded according to requirejs
-    //config, but if not found, then node's require
-    //is used to load the module.
+var filesToLoad = [
+  '../engine/gamespace.js',
+  '../engine/maze/mazeGame.js',
+  '../engine/maze/entity.js',
+  '../engine/maze/player.js',
+  '../engine/drawableObject.js',
+  '../effects/sparkle.js'];
+
+requirejs(filesToLoad,
+  function   (foo,   bar) {
+      //foo and bar are loaded according to requirejs
+      //config, but if not found, then node's require
+      //is used to load the module.
 });

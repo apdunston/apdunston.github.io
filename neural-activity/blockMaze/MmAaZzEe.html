@@ -18,40 +18,38 @@
 </div>
 <script src="../engine/gamespace.js"></script>
 <script src="../engine/display.js"></script>
-<script src="../engine/lightningDisplay.js"></script>
 <script src="../engine/drawableObject.js"></script>
 <script src="../effects/sparkle.js"></script>
 <script src="../effects/ring.js"></script>
 <script src="../effects/firework.js"></script>
 
-<script src="../engine/maze/mazeGame.js"></script>
-<script src="../engine/maze/render.js"></script>
-<script src="../engine/maze/entity.js"></script>
-<script src="../engine/maze/player.js"></script>
-<script src="../engine/maze/thinMaze.js"></script>
-<script src="../engine/maze/generate.js"></script>
-<script src="lightningMazeGame.js"></script>
+<script src="mazeGame.js"></script>
+<script src="entity.js"></script>
+<script src="player.js"></script>
+<script src="maze.js"></script>
+<script src="bot1.js"></script>
+<script src="mazes.js"></script>
+<script src="generator.js"></script>
 <script>
 var mazeGame;
 
 window.onload=function() {
+  displaySpeed = 10;
   canv=document.getElementById("canvas1");
-  display1 = new LightningDisplay(canv, 100);
+  display1 = new Display(canv, displaySpeed);
   display1.setColor("black");
-  display1.start();
 
   displaySpeed = 100;
   canv=document.getElementById("canvas2");
   display2 = new Display(canv, displaySpeed);
   display2.setColor("black");
 
-  var squareLength, gridLength;
-  squareLength = 20;
-  gridLength = 20;
-  mazeGame = new MazeGame.LightningMazeGame(document, display1, display2, gridLength, squareLength);
+  mazeGame = new MazeGame(display1, display2, MazeGame.mazes.maze1);
+  document.addEventListener("keydown",function(evt) {mazeGame.keyPush(evt)});
   
   // gameInterval = setInterval(mazeGame.gameLoop,1000/15);
-  // bot.player = mazeGame.getPlayer();
+
+  bot.player = mazeGame.getPlayer();
 }
 
 </script>

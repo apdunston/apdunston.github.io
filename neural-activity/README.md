@@ -172,3 +172,7 @@ Uses
 * requirejs - dependency management
 * mocha - unit test framework
 * simple-mock - test doubles
+
+## Further things you can do
+
+[Add better timing.](http://isaacsukin.com/news/2015/01/detailed-explanation-javascript-game-loops-and-timing)

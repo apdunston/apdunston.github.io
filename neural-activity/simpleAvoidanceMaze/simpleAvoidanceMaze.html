@@ -15,6 +15,20 @@
     </div>
     <div style="text-align: center">Neural Activity</div>
   </div>
+  <div style="clear: both"></div>
+    <div style="float: left">
+    <div>
+      <canvas id="canvas3" width="400" height="400"></canvas>
+    </div>
+    <div style="text-align: center">Status Console</div>
+  </div>
+  <div style="float: left; width 20px">&nbsp;</div>
+  <div style="float: left">
+    <div>
+      <canvas id="canvas4" width="400" height="400"></canvas>
+    </div>
+    <div style="text-align: center">Auxiliary Console</div>
+  </div>
 </div>
 <script src="../engine/gamespace.js"></script>
 <script src="../engine/display.js"></script>
@@ -23,40 +37,37 @@
 <script src="../effects/ring.js"></script>
 <script src="../effects/firework.js"></script>
 
-<script src="mazeGame.js"></script>
-<script src="player.js"></script>
-<script src="maze.js"></script>
-<script src="bot1.js"></script>
-<script src="mazes.js"></script>
-<script src="generator.js"></script>
+<script src="../engine/maze/mazeGame.js"></script>
+<script src="../engine/maze/timedMazeGame.js"></script>
+<script src="../engine/maze/chaseMazeGame.js"></script>
+<script src="../engine/maze/render.js"></script>
+<script src="../engine/maze/entity.js"></script>
+<script src="../engine/maze/player.js"></script>
+<script src="../engine/maze/nonPlayerCharacter.js"></script>
+<script src="../engine/maze/thinMaze.js"></script>
+<script src="../engine/maze/generate.js"></script>
 <script>
 var mazeGame;
 
 window.onload=function() {
-  displaySpeed = 10;
+  displaySpeed = 100;
   canv=document.getElementById("canvas1");
   display1 = new Display(canv, displaySpeed);
   display1.setColor("black");
 
-  displaySpeed = 100;
   canv=document.getElementById("canvas2");
   display2 = new Display(canv, displaySpeed);
   display2.setColor("black");
 
-  mazeGame = new MazeGame(display1, display2, MazeGame.mazes.maze1);
-  document.addEventListener("keydown",function(evt) {mazeGame.keyPush(evt)});
-  
-  // gameInterval = setInterval(mazeGame.gameLoop,1000/15);
-
-  bot.player = mazeGame.getPlayer();
+  var squareLength, gridLength;
+  squareLength = 20;
+  gridLength = 20;
+  mazeGame = new MazeGame.ChaseMazeGame(document, display1, display2, gridLength, squareLength);
 }
 
 </script>
 
 <div style="clear: both;"></div>
-<div style="margin-top: 10em">
-  <button onClick="javascript:bot.go();">Run Bot</button>
-  <button onClick="javascript:mazeGame.stop();">Stop Game</button>
-</div>
+
 </body>
 </html>

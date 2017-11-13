@@ -19,13 +19,6 @@ Display.prototype.setColor = function(value) {
   this.objects[0] = new DrawableSquare(0, 0, this.canvas.width, this.color);
 };
 
-Display.prototype.stop = function() {
-  if (this.framesPerSecond === 0) {
-    return;
-  }
-  clearInterval(this.drawInterval);
-};
-
 Display.prototype.flash = function(color, time, callback) {
   var self = this;
   self.stop();
@@ -63,6 +56,13 @@ Display.prototype.start = function() {
   var milliseconds = 1000 / this.framesPerSecond;
   var self = this;
   this.drawInterval = setInterval(function() {self.drawLoop()}, milliseconds);
+};
+
+Display.prototype.stop = function() {
+  if (this.framesPerSecond === 0) {
+    return;
+  }
+  clearInterval(this.drawInterval);
 };
 
 Display.prototype.addObject = function(object) {

@@ -4,6 +4,9 @@ DrawableObject = function() {
 DrawableObject.prototype.getId = function() {
   return this.id;
 };
+DrawableObject.prototype.isDone = function() {
+  return false;
+};
 
 // Constructor calls super
 DrawableSquare = function(x, y, length, color) {
@@ -102,3 +105,22 @@ DrawableCircle.prototype.setColor = function(value) {
   this.color = value;
 };
 
+// Constructor calls super
+DrawableText = function(x, y, text, color) {
+  DrawableObject.call(this);
+  this.x = x;
+  this.y = y;
+  this.text = text;
+  this.color = color;
+};
+
+// Explicit Inheritance
+DrawableText.prototype = Object.create(DrawableObject.prototype);
+DrawableText.prototype.constructor = DrawableText;
+
+// Instance Method
+DrawableText.prototype.draw = function(canvas, context) {
+  context.font = "12px Courier New";
+  context.fillStyle = this.color;
+  context.fillText(this.text, this.x, this.y);
+};
