@@ -1,3 +1,6 @@
+/**
+ * Interface DisplayObject
+ */
 Ring = function(x, y, squareLength, offset, sparkleDuration) {
   var i, sparkleSize, pixelsSmaller, colorIndex;
   this.x = x;

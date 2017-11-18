@@ -1,3 +1,6 @@
+/**
+ * Interface GameObject via Entity
+ */
 MazeGame.NonPlayerCharacter = function() {
 
   // Go a random direction that's not exactly where you came from

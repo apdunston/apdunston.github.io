@@ -1,14 +1,26 @@
+/**
+ * Interface Game
+ * Interface KeyDownListener
+ */
 MazeGame = function() {
-  MazeGame = function(document, mazeDisplay, neuralDisplay, gridLength, squareLength) {
+  MazeGame = function(keyboardDriver, mazeDisplay, neuralDisplay, gridLength, squareLength) {
     var self = this;
+    Game.call(self);
     this.gridLength = gridLength;
     this.squareLength = squareLength;
     this.mazeDisplay = mazeDisplay;
     this.neuralDisplay = neuralDisplay;
-    this.reset(this);
     this.gameLoopsPerSecond = 8;
-    neuralDisplay.start();
-    document.addEventListener("keydown",function(evt) {self.keyPush(evt)});
+    this.displays = [mazeDisplay, neuralDisplay];
+    this.keyboardDriver = keyboardDriver;
+  }
+
+  MazeGame.prototype = Object.create(Game.prototype);
+
+  MazeGame.prototype.start = function() {
+    var self = this;
+    Game.prototype.start.call(self);
+    this.reset();
   }
 
   MazeGame.prototype.drawLoop = function() {
@@ -28,15 +40,10 @@ MazeGame = function() {
     this.map = MazeGame.generate(this.gridLength, this.gridLength);
     this.drawMap = MazeGame.translate(this.map);
     var goalSquareLocation = this.gridLength * this.squareLength - this.squareLength / 2;
-    this.maze = new MazeGame.ThinMaze(this.drawMap, this.squareLength);
+    this.maze = new MazeGame.Maze(this.drawMap, this.squareLength);
     this.player = new MazeGame.Player(this.gridLength, this.squareLength, this);
     this.goalObject = new DrawableCircle(goalSquareLocation, goalSquareLocation, this.squareLength / 4, "green");
     this.clearDisplays();
-  }
-
-  MazeGame.prototype.stop = function() {
-    this.mazeDisplay.stop();
-    this.neuralDisplay.stop();
   }
 
   MazeGame.prototype.validMove = function(x, y, direction) {
@@ -53,7 +60,7 @@ MazeGame = function() {
 
   MazeGame.prototype.getPlayer = function() { return this.player; };
 
-  MazeGame.prototype.keyPush = function(evt) {
+  MazeGame.prototype.keyDown = function(evt) {
     switch(evt.keyCode) {
       case Gamespace.LEFT_CODE:
         this.player.left();
@@ -83,10 +90,11 @@ MazeGame = function() {
   MazeGame.prototype.win = function() {
     var self = this;
     this.won = true;
-    this.mazeDisplay.flash("blue", 500, function() { self.reset(self); });
+    this.mazeDisplay.flash("blue", 500, function() { self.gameEnd({won: true}); });
   }
 
   MazeGame.prototype.firework = function() {
+    if (this.neuralDisplay === null) { return; }
     this.neuralDisplay.addObject(new Firework(this.neuralDisplay.getLength()));
   };
 

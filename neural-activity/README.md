@@ -1,5 +1,157 @@
 # MmAaZzEe
 
+## Next steps 
+1. Work together GameMaster so that we can test all current game types on one web page. So, a previous button and a next button. (you'll have to add start() to each)
+2. Make sure the various classes fill these interfaces.
+3. Rehacktor to KeyboardDriver
+4. Rehacktor to DisplayDriver
+5. Erase unneeded methods
+
+```javascript
+game = new MazeGame(displayDriver, displayDriver2, keyboardDriver);
+game2 = new LightningMazeGame(displayDriver, keyboardDriver);
+gameMaster.addGame(game);
+gameMaster.addGame(game2);
+gameMaster.start();
+```
+
+## Design day after today
+
+
+### Interface Enum
+* #values()
+* #isValid(value)
+
+### Interface Renderer
+* #drawRectangle
+* #drawSquare
+* #drawCircle
+* #drawText
+* #drawLine
+
+Every Renderer has a de-facto canvas it's drawing on.
+
+DisplayDriver is a Renderer that ultimately draws.
+
+OffsetRenderer is a Renderer that adds +x and +y before passing on to DisplayDriver
+
+### Interface GameObject
+* #getDisplayObjects()
+
+GameObject represents a concept in the game: a maze, a goal, an character, etc.
+GameObject has a #getDisplayObjects
+GameObjects deal in displayObjects.
+
+### Interface DisplayObject
+* #isDone()
+* #draw()
+
+DisplayObject has a #draw method that executes draw commands with a renderer argument
+DisplayObject can have a list of DisplayObjects. Its #draw will call their #draw-s
+DisplayObjects deal in draw commands.
+
+### Interface Display
+* #addDisplayObject(displayObject)
+* #removeDisplayObject(displayObject)
+* #render()
+
+Display has a Renderer, an ordered list of displayObjects, and a #render function to call the displayObjects' #draw-s.
+Displays deal in displayObjects
+
+### Interface Exhibitor
+* #addGameObject(object)
+* #resetDisplay()
+* #drawLoop()
+* #startDisplay()
+* #stopDisplay()
+
+Exhibitor has an ordered list of gameObjects and a display
+Exhibitors are responsible for setting, clearing, and resetting thier displays
+Exhibitors deal in gameObjects
+#addGameObject(object)
+#resetDisplay()
+#drawLoop()
+#startDisplay()
+#stopDisplay()
+
+### Interface Game
+* #start()
+* #stop()
+* #gameLoop()
+
+A Game has multiple gameObjects and exhibitors. It assigns the gameObjects to the exhibitors. It takes a set of displayDrivers, a soundDriver, and a keyboardDriver. It creates gameObjects and directs them. It has a #mainLoop()
+
+### Interface KeyDownListener
+* #keyDown(keyCode)
+
+Most games will be keyDownListeners.
+
+### Interface GameEndListener
+* #gameEnd(data)
+
+### Interface KeyboardDriver
+* #addKeyDownListener(keyDownListener)
+
+### Interface GameMaster
+* #start()
+* #gotoGame(number)
+* #nextGame()
+* #previousGame()
+* #mainLoop()
+
+A GameMaster has multiple games.
+
+```javascript
+// This is the overall multi-game wiring.
+canvas = document.getElementById("myCanvas");
+canvas2 = document.getElementById("myCanvas2");
+displayDriver = new DisplayDriver(canvas);
+displayDriver2 = new DisplayDriver(canvas2);
+gameMaster = new GameMaster();
+keyboardDriver = new keyboardDriver();
+game = new MazeGame(displayDriver, displayDriver2, keyboardDriver);
+game2 = new LightningMazeGame(displayDriver, keyboardDriver);
+gameMaster.addGame(game);
+gameMaster.addGame(game2);
+gameMaster.start();
+```
+
+### New implementation for blue flash
+
+The blue win-flash should be an ever-present gameObject, the last object on the exhibitor's list. It has a displayObject. #start sets a timeout for #stop. #start messages #start to its displayObject. #stop messages #stop to the displayObject. Flash's displayObject changes #draw behavior based on its #start and #stop
+
+
+## Design today
+
+* GameMaster - connects individual games to I/O
+* Storyteller - starts and stops each game in sequence
+* KeyboardDriver - reads from keyboard
+** Publishes keyboard events
+* DisplayDriver - writes to screen
+** Takes a canvas
+** Subscribes to display events
+** Is only thing that can interact with the canvas
+* SoundDriver - writes to speaker
+** Takes an audioContext
+** Subscribes to audio events
+** Is the only thing that interacts with the speaker
+* Renderer
+** Offsets
+
+## Where I left off
+
+* test-first: Have Renderer handle all interactions with canvas/context
+* test-first: Hand each drawable object a renderer instead of canvas/context
+* Write Display#createRenderer(x, y)
+* Have MazeGame constructor take a renderer instead of a display.
+* test-first: give MazeGame a #getDisplayObjects() (MazeGame is a DisplayObjectProvider)
+* test-first: Write an Exhibitor which calls #getDisplayObjects on providers, clears displays, and inserts display objects into the displays in proper order.
+* Write MazeGame#subscribeTo(eventType, objectToTrigger)
+** Events: win, lose, validMove
+* Have MultiMaze#handleEvent(event)
+** event.data
+** event.type
+
 ## Mazes
 ** only discover walls by bumping into them
 ** display 1 is x/y, display2 is x/z

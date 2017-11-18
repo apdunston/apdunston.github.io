@@ -1,3 +1,6 @@
+/**
+ * Bare Functions
+ */
 Gamespace = {
   generateId: function() {
     function s4() {

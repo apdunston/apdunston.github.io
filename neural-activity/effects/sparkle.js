@@ -1,3 +1,6 @@
+/**
+ * Interface DisplayObject
+ */
 Sparkle = function(x, y, squareLength, duration, colorIndex) {
   this.x = x;
   this.y = y;

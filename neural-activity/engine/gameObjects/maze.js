@@ -1,11 +1,15 @@
-MazeGame.ThinMaze = function(drawMap, squareLength) {
+/**
+ * Interface GameObject
+ */
+MazeGame.Maze = function(drawMap, squareLength) {
   this.drawMap = drawMap;
   this.squareLength = squareLength;
   this.gridLength = this.drawMap.horizontalSpaces.length - 1;
 }
 
-MazeGame.ThinMaze.prototype.isDone = function() { return false; };
-MazeGame.ThinMaze.prototype.draw = function(canvas, context) {
+MazeGame.Maze.prototype.isDone = function() { return false; };
+
+MazeGame.Maze.prototype.draw = function(canvas, context) {
   for (var i = 0; i < this.drawMap.horizontalSpaces.length; i += 1) {
     MazeGame.Render.drawHorizontalRow(i, this.drawMap.horizontalSpaces[i], canvas, this.squareLength);
   }
@@ -18,7 +22,7 @@ MazeGame.ThinMaze.prototype.draw = function(canvas, context) {
 /**
  * Note that we're converting drawMap player location to drawMap spaces. This reverses x and y.
  */
-MazeGame.ThinMaze.prototype.validMove = function(x, y, direction) {
+MazeGame.Maze.prototype.validMove = function(x, y, direction) {
   switch(direction) {
     case Gamespace.UP:
       return this.drawMap.horizontalSpaces[y][x];

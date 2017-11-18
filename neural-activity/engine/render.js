@@ -1,3 +1,6 @@
+/**
+ * Interface Renderer
+ */
 MazeGame.Render = function() { return {}; }();
 
 MazeGame.Render.drawLine = function(canvas, x, y, xAddend, yAddend, squareLength) {

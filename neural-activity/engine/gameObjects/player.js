@@ -1,3 +1,6 @@
+/**
+ * Interface GameObject via Entity
+ */
 MazeGame.Player = function() {
 
   Player = function(gridLength, squareLength, game) {

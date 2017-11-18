@@ -1,3 +1,6 @@
+/**
+ * Interface Display
+ */
 Display = function(canvas, framesPerSecond) {
   this.color = "black";
   this.context = canvas.getContext("2d");
@@ -9,27 +12,24 @@ Display = function(canvas, framesPerSecond) {
   this.addObject(this.backgroundObject);
 };
 
-Display.prototype.clear = function() {
-  this.objects = [];
-  this.addObject(this.backgroundObject);
-};
+Display.prototype.constructor = Display;
 
 Display.prototype.setColor = function(value) {
   this.color = value;
   this.objects[0] = new DrawableSquare(0, 0, this.canvas.width, this.color);
+  this.drawLoop();
 };
 
 Display.prototype.flash = function(color, time, callback) {
   var self = this;
-  self.stop();
   time = time ? time : 200;
   var flashObject = new DrawableSquare(0, 0, this.canvas.width, color);
-  flashObject.draw(this.canvas, this.context);
+  this.objects.push(flashObject);
+  // flashObject.draw(this.canvas, this.context);
   setTimeout(function() { 
-    self.drawLoop(); 
+    self.objects.pop();
     if (callback) {
       callback();
-      self.start();
     }
   }, time);
 };
@@ -63,6 +63,12 @@ Display.prototype.stop = function() {
     return;
   }
   clearInterval(this.drawInterval);
+};
+
+Display.prototype.clear = function() {
+  this.objects = [];
+  this.addObject(this.backgroundObject);
+  this.drawLoop();
 };
 
 Display.prototype.addObject = function(object) {

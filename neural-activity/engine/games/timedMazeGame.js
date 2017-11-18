@@ -1,8 +1,11 @@
+/**
+ * Interface Game via MazeGame
+ * Interface KeyPushListener
+ */
 MazeGame.TimedMazeGame = function() {
-  TimedMazeGame = function(document, mazeDisplay, neuralDisplay, gridLength, squareLength) {
+  TimedMazeGame = function(keyboardDriver, mazeDisplay, neuralDisplay, gridLength, squareLength) {
     this.objects = [];
-    MazeGame.call(this, document, mazeDisplay, neuralDisplay, gridLength, squareLength);
-    mazeDisplay.start();
+    MazeGame.call(this, keyboardDriver, mazeDisplay, neuralDisplay, gridLength, squareLength);
   };
 
   // Explicit Inheritance

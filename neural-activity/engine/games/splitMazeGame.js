@@ -1,19 +1,19 @@
 // Constructor calls super
-MazeGame.SplitMazeGame = function(document, mazeXDisplay, mazeYDisplay, neuralDisplay, gridLength, squareLength) {
+MazeGame.SplitMazeGame = function(keyboardDriver, mazeXDisplay, mazeYDisplay, neuralDisplay, gridLength, squareLength) {
   var self = this;
+  Game.call(self);
   this.gridLength = gridLength;
   this.squareLength = squareLength;
   this.mazeXDisplay = mazeXDisplay;
   this.mazeYDisplay = mazeYDisplay;
   this.neuralDisplay = neuralDisplay;
-  this.reset();
-  neuralDisplay.start();
-  document.addEventListener("keydown",function(evt) {self.keyPush(evt)});
+  this.displays = [mazeXDisplay, mazeYDisplay, neuralDisplay];
+  this.keyboardDriver = keyboardDriver;
 };
 
 // Explicit Inheritance
 MazeGame.SplitMazeGame.prototype = Object.create(MazeGame.prototype);
-MazeGame.SplitMazeGame.prototype.constructor = MazeGame;
+MazeGame.SplitMazeGame.prototype.constructor = MazeGame.SplitMazeGame;
 
 MazeGame.SplitMazeGame.prototype.clearDisplays = function() {
   this.horizontalDisplay = new MazeGame.HorizontalDisplay(this.drawMap, this.squareLength);
@@ -35,17 +35,12 @@ MazeGame.SplitMazeGame.prototype.drawLoop = function() {
   this.mazeYDisplay.drawLoop();
 }
 
-MazeGame.SplitMazeGame.prototype.stop = function() {
-  mazeXDisplay.stop();
-  mazeYDisplay.stop();
-  neuralDisplay.stop();
-}
-
 MazeGame.SplitMazeGame.prototype.win = function() {
   var self = this;
   var secondFlashDuration = 500;
   var secondFlashDelay = 75;
   var firstFlashDuration = secondFlashDelay + secondFlashDuration;
+  console.log(firstFlashDuration);
   this.mazeXDisplay.flash("blue", firstFlashDuration, function() {});
-  setTimeout(function() {self.mazeYDisplay.flash("blue", secondFlashDuration, function() { self.reset(); });}, secondFlashDelay);
+  setTimeout(function() {self.mazeYDisplay.flash("blue", secondFlashDuration, function() { self.gameEnd({won: true}); });}, secondFlashDelay);
 }

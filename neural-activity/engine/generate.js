@@ -1,6 +1,10 @@
-//https://rosettacode.org/wiki/Maze_generation#JavaScript
-// verti draws horizontal lines top row to bottom row, left to right, with true being blank and false being add a horizontal line.
-// horiz draws vertical lines top row to bottom row, left to right, with true being blank and false being add a horizontal line.
+/**
+ * Bare functions
+ * 
+ * https://rosettacode.org/wiki/Maze_generation#JavaScript
+ * verti draws horizontal lines top row to bottom row, left to right, with true being blank and false being add a horizontal line.
+ * horiz draws vertical lines top row to bottom row, left to right, with true being blank and false being add a horizontal line.
+ */
 MazeGame.generate = function(x,y) {
   var n=x*y-1;
   if (n<0) {alert("illegal maze dimensions");return;}

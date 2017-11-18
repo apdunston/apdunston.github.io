@@ -1,3 +1,6 @@
+/**
+ * Interface GameObject
+ */
 Firework = function(canvasLength) {
   this.sparkleDuration = 20;
   this.frameCount = 0;
@@ -14,8 +17,7 @@ Firework = function(canvasLength) {
   this.sparkles = [
     new Sparkle(this.x, this.y, this.squareLength, this.sparkleDuration),
   ];
-  this.rings = [];//new Ring(this.x, this.y, this.squareLength, 1),
-    // new Ring(this.x, this.y, this.squareLength, 2)];
+  this.rings = [];
 };  
 
 Firework.prototype.draw = function(canvas, context) {

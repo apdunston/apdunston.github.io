@@ -1,4 +1,5 @@
 /**
+ * Interface Display
  * The first object added (not the background) is only drawn as lightning flashes.
  */
 LightningDisplay = function(canvas, framesPerSecond) {
@@ -24,9 +25,9 @@ LightningDisplay = function(canvas, framesPerSecond) {
 
 // Explicit Inheritance
 LightningDisplay.prototype = Object.create(Display.prototype);
-LightningDisplay.prototype.constructor = Display;
+LightningDisplay.prototype.constructor = LightningDisplay;
 
-Display.prototype.clear = function() {
+LightningDisplay.prototype.clear = function() {
   this.lightningObjects = [];
   this.objects = [];
   this.addObject(this.backgroundObject);

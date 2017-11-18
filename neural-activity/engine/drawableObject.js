@@ -1,6 +1,12 @@
+/**
+ * Interface DisplayObject
+ */
 DrawableObject = function() {
   this.id = Gamespace.generateId();
 };
+
+DrawableObject.prototype.constructor = DrawableObject;
+
 DrawableObject.prototype.getId = function() {
   return this.id;
 };

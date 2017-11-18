@@ -9,11 +9,32 @@ requirejs.config({
 
 var filesToLoad = [
   '../engine/gamespace.js',
-  '../engine/maze/mazeGame.js',
-  '../engine/maze/entity.js',
-  '../engine/maze/player.js',
+  '../engine/fonts.js',
+  '../engine/keyboardDriver.js',
+  '../engine/gamespace.js',
+  '../engine/display.js',
+  '../engine/lightningDisplay.js',
   '../engine/drawableObject.js',
-  '../effects/sparkle.js'];
+  '../effects/sparkle.js',
+  '../effects/ring.js',
+  '../effects/firework.js',
+  '../engine/games/game.js',
+  '../engine/games/mazeGame.js',
+  '../engine/gameObjects/entity.js',
+  '../engine/gameObjects/player.js',
+  '../engine/gameObjects/maze.js',
+  '../engine/generate.js',
+  '../engine/render.js',
+  '../otherPeoplesCode/jquery-3.2.1.min.js',
+  '../engine/subDisplay.js',
+  '../engine/gameMaster.js',
+  '../engine/games/splitMazeGame.js',
+  '../engine/games/lightningMazeGame.js',
+  '../engine/gameObjects/nonPlayerCharacter.js',
+  '../engine/games/timedMazeGame.js',
+  '../engine/games/chaseMazeGame.js',
+  '../engine/neuralActivityGameMaster.js'];
+
 
 requirejs(filesToLoad,
   function   (foo,   bar) {
@@ -21,3 +42,4 @@ requirejs(filesToLoad,
       //config, but if not found, then node's require
       //is used to load the module.
 });
+

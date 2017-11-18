@@ -1,0 +1,90 @@
+<html>
+<head>
+  <script src="../engine/keyboardDriver.js"></script>
+  <script src="../engine/gamespace.js"></script>
+  <script src="../engine/display.js"></script>
+  <script src="../engine/lightningDisplay.js"></script>
+  <script src="../engine/drawableObject.js"></script>
+  <script src="../effects/sparkle.js"></script>
+  <script src="../effects/ring.js"></script>
+  <script src="../effects/firework.js"></script>
+  <script src="../engine/games/game.js"></script>
+  <script src="../engine/games/mazeGame.js"></script>
+  <script src="../engine/gameObjects/entity.js"></script>
+  <script src="../engine/gameObjects/player.js"></script>
+  <script src="../engine/gameObjects/maze.js"></script>
+  <script src="../engine/generate.js"></script>
+  <script src="../engine/render.js"></script>
+  <script src="../otherPeoplesCode/jquery-3.2.1.min.js"></script>
+  <script src="../engine/subDisplay.js"></script>
+  <script src="../engine/gameMaster.js"></script>
+  <script src="../engine/games/splitMazeGame.js"></script>
+  <script src="../engine/games/lightningMazeGame.js"></script>
+  <script src="../engine/gameObjects/nonPlayerCharacter.js"></script>
+  <script src="../engine/games/timedMazeGame.js"></script>
+  <script src="../engine/games/chaseMazeGame.js"></script>
+  <script src="../engine/neuralActivityGameMaster.js"></script>
+  <script>
+  var gameMaster;
+
+  window.onload=function() {
+    var canv, display1, display2, display3, display4, mazeGame, 
+      canvasLength;
+    canvasLength = 400;
+
+    $('canvas').attr('height', canvasLength).attr('width', canvasLength);
+
+    canvas1 = document.getElementById("canvas1");
+    canvas2 = document.getElementById("canvas2");
+    canvas3 = document.getElementById("canvas3");
+    canvas4 = document.getElementById("canvas4");
+
+    // TODO - implement keyPushListeners
+    keyboardDriver = new KeyboardDriver(document);
+    soundDriver = null;
+
+    gameMaster = new NeuralActivityGameMaster(canvas1, canvas2, canvas3, canvas4, keyboardDriver, soundDriver);
+  }
+
+  </script>
+</head>
+<body style="font-family: 'Courier New', Courier, monospace; background-color: #333333; color: white; height: 100%; overflow: hidden;">
+<div style="margin-bottom: 1em">
+  <button onClick="javascript:gameMaster.previous();">Previous Game</button>
+  <button onClick="javascript:gameMaster.next();">Next Game</button>
+</div>
+
+<div>
+  <div style="float: left">
+    <div>
+      <canvas id="canvas1"></canvas>
+    </div>
+    <div style="text-align: center">Disconnection Console X</div>
+  </div>
+  <div style="float: left; width 20px">&nbsp;</div>
+  <div style="float: left">
+    <div>
+      <canvas id="canvas2"></canvas>
+    </div>
+    <div style="text-align: center">Disconnection Console Y</div>
+  </div>
+</div>
+<div style="clear: both"></div>
+<div>
+  <div style="float: left">
+    <div>
+      <canvas id="canvas3"></canvas>
+    </div>
+    <div style="text-align: center">Connections Subconsole XZ</div>
+  </div>
+  <div style="float: left; width 20px">&nbsp;</div>
+  <div style="float: left">
+    <div>
+      <canvas id="canvas4"></canvas>
+    </div>
+    <div style="text-align: center">Neural Activity</div>
+  </div>
+</div>
+<div style="clear: both;"></div>
+</body>
+</html>
