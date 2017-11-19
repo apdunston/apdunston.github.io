@@ -40,7 +40,7 @@ MazeGame = function() {
     this.map = MazeGame.generate(this.gridLength, this.gridLength);
     this.drawMap = MazeGame.translate(this.map);
     var goalSquareLocation = this.gridLength * this.squareLength - this.squareLength / 2;
-    this.maze = new MazeGame.Maze(this.drawMap, this.squareLength);
+    this.maze = new Maze(this.drawMap, this.squareLength);
     this.player = new MazeGame.Player(this.gridLength, this.squareLength, this);
     this.goalObject = new DrawableCircle(goalSquareLocation, goalSquareLocation, this.squareLength / 4, "green");
     this.clearDisplays();

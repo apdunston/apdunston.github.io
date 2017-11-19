@@ -1,15 +1,22 @@
 /**
  * Interface GameObject
+ * Interface DisplayObject
  */
-MazeGame.Maze = function(drawMap, squareLength) {
+Maze = function(drawMap, squareLength) {
   this.drawMap = drawMap;
   this.squareLength = squareLength;
   this.gridLength = this.drawMap.horizontalSpaces.length - 1;
 }
 
-MazeGame.Maze.prototype.isDone = function() { return false; };
+Maze.prototype.constructor = Maze;
 
-MazeGame.Maze.prototype.draw = function(canvas, context) {
+Maze.prototype.isDone = function() { return false; };
+
+Maze.prototype.getDisplayObjects = function() {
+  return [this];
+}
+
+Maze.prototype.draw = function(canvas, context) {
   for (var i = 0; i < this.drawMap.horizontalSpaces.length; i += 1) {
     MazeGame.Render.drawHorizontalRow(i, this.drawMap.horizontalSpaces[i], canvas, this.squareLength);
   }
@@ -22,7 +29,7 @@ MazeGame.Maze.prototype.draw = function(canvas, context) {
 /**
  * Note that we're converting drawMap player location to drawMap spaces. This reverses x and y.
  */
-MazeGame.Maze.prototype.validMove = function(x, y, direction) {
+Maze.prototype.validMove = function(x, y, direction) {
   switch(direction) {
     case Gamespace.UP:
       return this.drawMap.horizontalSpaces[y][x];

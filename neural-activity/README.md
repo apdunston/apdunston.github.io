@@ -1,9 +1,7 @@
-# MmAaZzEe
+# Neural Activity
 
 ## Next steps 
-1. Work together GameMaster so that we can test all current game types on one web page. So, a previous button and a next button. (you'll have to add start() to each)
 2. Make sure the various classes fill these interfaces.
-3. Rehacktor to KeyboardDriver
 4. Rehacktor to DisplayDriver
 5. Erase unneeded methods
 

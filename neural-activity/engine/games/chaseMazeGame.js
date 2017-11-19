@@ -28,6 +28,12 @@ MazeGame.ChaseMazeGame = function() {
     this.neuralDisplay.addObject(text);
   }
 
+  ChaseMazeGame.prototype.stop = function() {
+    var self = this;
+    Game.prototype.stop.call(self);
+    this.stopGameLoop();
+  }
+
   ChaseMazeGame.prototype.end = function() {
     var self = this;
     this.mazeDisplay.flash("red", 500, function() { self.reset(); });

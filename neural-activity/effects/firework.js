@@ -1,5 +1,6 @@
 /**
  * Interface GameObject
+ * Interface DisplayObject
  */
 Firework = function(canvasLength) {
   this.sparkleDuration = 20;
@@ -19,6 +20,10 @@ Firework = function(canvasLength) {
   ];
   this.rings = [];
 };  
+
+Firework.prototype.getDisplayObjects = function() {
+  return [this];
+}
 
 Firework.prototype.draw = function(canvas, context) {
   var smallerLength = this.squareLength * .7;
