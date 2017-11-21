@@ -50,11 +50,11 @@ Ring = function(x, y, squareLength, offset, sparkleDuration) {
 }
 
 
-Ring.prototype.draw = function(canvas, context) {
+Ring.prototype.draw = function(renderer) {
   this.isDoneValue = true;
   for (var i = 0; i < this.sparkles.length; i += 1) {
     if (!this.sparkles[i].isDone()) {
-      this.sparkles[i].draw(canvas, context);
+      this.sparkles[i].draw(renderer);
       this.isDoneValue = false;
     }
   }

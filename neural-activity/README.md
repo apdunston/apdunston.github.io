@@ -26,6 +26,7 @@ gameMaster.start();
 * #drawCircle
 * #drawText
 * #drawLine
+* #getWidth
 
 Every Renderer has a de-facto canvas it's drawing on.
 
@@ -306,13 +307,6 @@ You can't communicate with it. You can create connections and watch it talk to i
 * Disconnection Console Y
 
 * Remedial Console
-
-## Design
-
-### Drawable Objects
-
-Must have `void draw(canvas, context)` and `bool isDone()`.
-
 
 ## Testing
 

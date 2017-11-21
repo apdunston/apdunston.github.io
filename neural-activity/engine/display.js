@@ -1,14 +1,14 @@
 /**
  * Interface Display
  */
-Display = function(canvas, framesPerSecond) {
+Display = function(renderer, framesPerSecond) {
   this.color = "black";
-  this.context = canvas.getContext("2d");
-  this.canvas = canvas;
+  this.renderer = renderer;
   this.framesPerSecond = framesPerSecond;
   this.objects = [];
   this.backgroundOnly = false;
-  this.backgroundObject = new DrawableSquare(0, 0, canvas.width, this.color);
+  this.width = renderer.getWidth();
+  this.backgroundObject = new DrawableSquare(0, 0, this.width, this.color);
   this.addObject(this.backgroundObject);
 };
 
@@ -16,16 +16,15 @@ Display.prototype.constructor = Display;
 
 Display.prototype.setColor = function(value) {
   this.color = value;
-  this.objects[0] = new DrawableSquare(0, 0, this.canvas.width, this.color);
-  this.drawLoop();
+  this.objects[0] = new DrawableSquare(0, 0, this.width, this.color);
+  this.render();
 };
 
 Display.prototype.flash = function(color, time, callback) {
   var self = this;
   time = time ? time : 200;
-  var flashObject = new DrawableSquare(0, 0, this.canvas.width, color);
+  var flashObject = new DrawableSquare(0, 0, this.width, color);
   this.objects.push(flashObject);
-  // flashObject.draw(this.canvas, this.context);
   setTimeout(function() { 
     self.objects.pop();
     if (callback) {
@@ -34,11 +33,11 @@ Display.prototype.flash = function(color, time, callback) {
   }, time);
 };
 
-Display.prototype.drawLoop = function() {
+Display.prototype.render = function() {
   if (this.backgroundOnly) { return; }
 
   for (var x = 0; x < this.objects.length; x++) {
-    this.objects[x].draw(this.canvas, this.context);
+    this.objects[x].draw(this.renderer);
     if (this.objects[x].isDone()) {
       this.objects.splice(x, 1);
     }
@@ -55,7 +54,7 @@ Display.prototype.start = function() {
   }
   var milliseconds = 1000 / this.framesPerSecond;
   var self = this;
-  this.drawInterval = setInterval(function() {self.drawLoop()}, milliseconds);
+  this.drawInterval = setInterval(function() {self.render()}, milliseconds);
 };
 
 Display.prototype.stop = function() {
@@ -68,7 +67,7 @@ Display.prototype.stop = function() {
 Display.prototype.clear = function() {
   this.objects = [];
   this.addObject(this.backgroundObject);
-  this.drawLoop();
+  this.render();
 };
 
 Display.prototype.addObject = function(object) {
@@ -77,5 +76,5 @@ Display.prototype.addObject = function(object) {
 };
 
 Display.prototype.getLength = function() {
-  return this.canvas.width;
+  return this.width;
 };

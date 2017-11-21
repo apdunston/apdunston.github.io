@@ -26,12 +26,12 @@ Sparkle.prototype.isDone = function() {
   return this.frameCount > this.maxFrameCount;
 };
 
-Sparkle.prototype.draw = function(canvas, context) {
+Sparkle.prototype.draw = function(renderer) {
   var xPlus, newColor;
 
   if (this.frameCount <= this.maxFrameCount) {
     this.frameCount += 1;
-    this.drawable.draw(canvas, context);
+    this.drawable.draw(renderer);
     xPlus = this.isHalfDone() ? -1 : 1;
     this.drawable.addY(xPlus);    
     newColor = this.colorForFramecount(this.frameCount);

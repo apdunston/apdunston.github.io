@@ -2,8 +2,8 @@
  * Interface Display
  * The first object added (not the background) is only drawn as lightning flashes.
  */
-LightningDisplay = function(canvas, framesPerSecond) {
-  "use strict";
+LightningDisplay = function(renderer, framesPerSecond) {
+  Display.call(this, renderer, framesPerSecond);
   this.flashProgressions = [
     [190],
     [110, 160, 175],
@@ -11,21 +11,23 @@ LightningDisplay = function(canvas, framesPerSecond) {
     [100, 150, 165, 215, 225]
   ];
   this.stopFrame = 300;
-  this.color = "black";
-  this.context = canvas.getContext("2d");
-  this.canvas = canvas;
   this.framesPerSecond = framesPerSecond;
-  this.objects = [];
   this.lightningObjects = [];
-  this.currentAlpha = 1.0;
-  this.backgroundObject = new DrawableSquare(0, 0, canvas.width, this.color);
-  this.addObject(this.backgroundObject);
+  this.startingAlpha = Alpha.FULLY_VISIBLE;
+  this.endingAlpha = Alpha.INVISIBLE;
+  this.currentAlpha = this.endingAlpha;
+  this.delta = 0.005;
   this.resetLightning();
 };
+
 
 // Explicit Inheritance
 LightningDisplay.prototype = Object.create(Display.prototype);
 LightningDisplay.prototype.constructor = LightningDisplay;
+
+LightningDisplay.prototype.applyDelta = function() {
+  this.currentAlpha -= this.delta;
+}
 
 LightningDisplay.prototype.clear = function() {
   this.lightningObjects = [];
@@ -33,38 +35,33 @@ LightningDisplay.prototype.clear = function() {
   this.addObject(this.backgroundObject);
 };
 
-
-LightningDisplay.prototype.drawLoop = function() {
-  var x;
-  this.objects[0].draw(this.canvas, this.context);
-
-  if (this.lightningObjects.length > 0 && this.flashing && !this.won) {
+LightningDisplay.prototype.render = function() {
+  Display.prototype.render.call(this);
+  
+  if (this.lightningObjects.length > 0 && this.flashing) {
     this.advanceLightning();
   } else {
     if (Math.floor(Math.random() * 200) === 1) {
       this.goLightning();
     }
-  }
-
-  for (x = 1; x < this.objects.length; x+=1) {
-    this.objects[x].draw(this.canvas, this.context);
-    if (this.objects[x].isDone()) {
-      this.objects.splice(x, 1);
-    }
-  }
+  }  
+  this.drawLightning();
 };
 
 LightningDisplay.prototype.advanceLightning = function() {
-    this.currentFlashFrame += 1;
-    this.drawLightning();
+  this.currentFlashFrame += 1;
 
-    if (this.flashFrames.includes(this.currentFlashFrame)) {
-      this.currentAlpha = 0.4;
-    }
+  if (this.flashFrames.includes(this.currentFlashFrame)) {
+    this.currentAlpha = Alpha.PARTLY_VISIBLE;
+  }
 
-    if (this.currentFlashFrame >= this.stopFrame) {
-      this.resetLightning();
-    }
+  if (this.currentFlashFrame >= this.stopFrame) {
+    this.currentAlpha = this.endingAlpha;
+    this.resetLightning();
+    return;
+  }
+
+  this.applyDelta();
 }
 
 LightningDisplay.prototype.grabFlashFrames = function() {
@@ -72,37 +69,36 @@ LightningDisplay.prototype.grabFlashFrames = function() {
   this.flashFrames = this.flashProgressions[index];
 }
 
+LightningDisplay.prototype.lightningDoneCondition = function() {
+  this.currentAlpha <= this.endingAlpha;
+}
+
 LightningDisplay.prototype.drawLightning = function() {
-  if (this.currentAlpha >= 1.0) {
-    return;
-  }
+  if (this.lightningDoneCondition()) {
+    this.currentAlpha = this.endingAlpha;
+  }  
 
   for (x = 0; x < this.lightningObjects.length; x+=1) {
-    this.lightningObjects[x].draw(this.canvas, this.context);
+    this.lightningObjects[x].setAlpha(this.currentAlpha);
+    this.lightningObjects[x].draw(this.renderer);
     if (this.lightningObjects[x].isDone()) {
       this.lightningObjects.splice(x, 1);
     }
   }
-
-  // Draw translucent background
-  this.context.globalAlpha = this.currentAlpha;
-  this.objects[0].draw(this.canvas, this.context);
-  this.context.globalAlpha = 1.0;
-  this.currentAlpha += 0.01;
 }
 
 LightningDisplay.prototype.resetLightning = function() {
-      this.flashing = false;
-      this.currentFlashFrame = 0;
+  this.flashing = false;
+  this.currentFlashFrame = 0;
 }
 
 LightningDisplay.prototype.goLightning = function() {
   var self = this;
   this.grabFlashFrames();
-  this.currentAlpha = 0.0;
+  this.currentAlpha = this.startingAlpha;
   this.flashing = true;
 }
 
-LightningDisplay.prototype.addFlashObject = function(object) {
+LightningDisplay.prototype.addLightningObject = function(object) {
   this.lightningObjects.push(object);
 }

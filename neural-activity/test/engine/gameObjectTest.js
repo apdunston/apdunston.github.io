@@ -9,7 +9,7 @@ describe('GameObjectTest', function() {
     var game = {};
     var drawMap = { horizontalSpaces: []};
 
-    this.displayObjectClasses = [
+    displayObjectClasses = [
       new Maze(drawMap, 20),
       new Entity(10, 10, game, "red"),
       new Firework(10),
@@ -20,8 +20,8 @@ describe('GameObjectTest', function() {
 
   describe('#getDisplayObjects', function() {
     it('should return displayObjects', function() {
-      for (var i = 0; i < this.displayObjectClasses.length; i++) {
-        assert(this.displayObjectClasses[i].getDisplayObjects().length > 0);
+      for (var i = 0; i < displayObjectClasses.length; i++) {
+        assert(displayObjectClasses[i].getDisplayObjects().length > 0);
       }
     });
   });

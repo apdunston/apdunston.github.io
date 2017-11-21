@@ -6,9 +6,9 @@ describe('Renderer', function() {
   var context, canvas;
 
   before(function() {
-    this.context = {};
-    this.canvas = {};
-    simple.mock(this.context, 'fillRect');
+    context = {};
+    canvas = {};
+    simple.mock(context, 'fillRect');
   });
 
   describe('#drawLine()', function() {
@@ -23,7 +23,7 @@ describe('Renderer', function() {
     //   var xAddend = 4;
     //   var yAddend = 3;
     //   var squareLength = 10;
-    //   renderer.drawLine(this.canvas, x, y, xAddend, yAddend, squareLength);
+    //   renderer.drawLine(canvas, x, y, xAddend, yAddend, squareLength);
     // });
   });
 });

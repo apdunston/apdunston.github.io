@@ -77,7 +77,7 @@ MazeGame.Entity = function() {
   Entity.prototype.left = function() { this.move(Gamespace.LEFT); };
   Entity.prototype.right = function() { this.move(Gamespace.RIGHT); };
   Entity.prototype.isDone = function() { return false; };
-  Entity.prototype.draw = function(canvas, context) { this.square.draw(canvas, context); };
+  Entity.prototype.draw = function(renderer) { this.square.draw(renderer); };
   Entity.prototype.getDisplayObjects = function() { return [this.square] };
   return Entity;
 }();

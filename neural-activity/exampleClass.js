@@ -14,7 +14,7 @@ ExampleSubclass = function() {
 }
 
 ExampleSubclass.prototype = Object.create(ExampleClass.prototype);
-
+ExampleSubclass.prototype.constructor = ExampleSubclass;
 
 SubclassWithPrivateMethods = function() {
 

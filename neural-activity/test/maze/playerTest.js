@@ -10,63 +10,63 @@ describe('MazeGame.Player', function() {
     // canvas = {};
     simple.mock(game, 'validMove').returnWith(true);
     simple.mock(game, 'firework');
-    this.limit = 99;
-    this.player = new MazeGame.Player(this.limit+1, 10, game);
+    limit = 99;
+    player = new MazeGame.Player(limit+1, 10, game);
   });
 
   describe('#up()', function() {
     it('should move up', function() {
-      this.player.setPosition(10, 10);
-      this.player.up();
-      assert(9 == this.player.getY());
+      player.setPosition(10, 10);
+      player.up();
+      assert(9 == player.getY());
     });
 
     it('should wrap', function() {
-      this.player.setPosition(10, 0);
-      this.player.up();
-      assert(this.limit == this.player.getY());
+      player.setPosition(10, 0);
+      player.up();
+      assert(limit == player.getY());
     });
   });
 
   describe('#down()', function() {
     it('should move down', function() {
-      this.player.setPosition(10, 10);
-      this.player.down();
-      assert(11 == this.player.getY());
+      player.setPosition(10, 10);
+      player.down();
+      assert(11 == player.getY());
     });
 
     it('should wrap', function() {
-      this.player.setPosition(10, this.limit);
-      this.player.down();
-      assert(0 == this.player.getY());
+      player.setPosition(10, limit);
+      player.down();
+      assert(0 == player.getY());
     });
   });
 
   describe('#left()', function() {
     it('should move left', function() {
-      this.player.setPosition(10, 10);
-      this.player.left();
-      assert(9 == this.player.getX());
+      player.setPosition(10, 10);
+      player.left();
+      assert(9 == player.getX());
     });
 
     it('should wrap', function() {
-      this.player.setPosition(0, 10);
-      this.player.left();
-      assert(this.limit == this.player.getX());
+      player.setPosition(0, 10);
+      player.left();
+      assert(limit == player.getX());
     });
   });
 
   describe('#right()', function() {
     it('should move right', function() {
-      this.player.setPosition(10, 10);
-      this.player.right();
-      assert(11 == this.player.getX());
+      player.setPosition(10, 10);
+      player.right();
+      assert(11 == player.getX());
     });
 
     it('should wrap', function() {
-      this.player.setPosition(this.limit, 10);
-      this.player.right();
-      assert(0 == this.player.getX());
+      player.setPosition(limit, 10);
+      player.right();
+      assert(0 == player.getX());
     });
   });
 });

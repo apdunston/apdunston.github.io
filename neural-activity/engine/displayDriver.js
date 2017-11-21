@@ -1,44 +1,72 @@
-DisplayDriver = function(canvas) {
-  this.canvas = canvas;
-  this.context = canvas.getContext("2d");
-};
+DisplayDriver = function() {
 
-DisplayDriver.prototype.constructor = DisplayDriver;
+  var _alphaWrap = function(self, alpha, fn) {
+    if (alpha !== undefined) {
+      self.context.globalAlpha = alpha;
+    }
 
-DisplayDriver.prototype.drawRectangle = function(x, y, xLength, yWidth, color) {
-    this.context.fillStyle = color;
-    this.context.fillRect(x, y, xLength, yWidth);
-};
+    fn(self);
 
-DisplayDriver.prototype.drawSquare = function(x, y, length, color) {
-  this.drawRectangle(x, y, length, length, color);
-};
-
-DisplayDriver.prototype.drawCircle = function(x, y, radius, color) {
-    this.context.fillStyle = color;
-    this.context.beginPath();
-    this.context.arc(x, y, radius, 0, 2 * Math.PI);
-    this.context.fill();
-};
-
-DisplayDriver.prototype.drawText = function(x, y, text, color, size, font) {
-  font = (font || "Courier New");
-  if (!Fonts.isValid(font)) {
-    throw font + " is an invalid font.";
+    self.context.globalAlpha = 1.0;
   }
 
-  this.context.font = size + "px " + font;
-  this.context.fillStyle = color;
-  this.context.fillText(text, x, y);
-};
+  DisplayDriver = function(canvas) {
+    this.canvas = canvas;
+    this.context = canvas.getContext("2d");
+  };
+
+  DisplayDriver.prototype.constructor = DisplayDriver;
+
+  DisplayDriver.prototype.getWidth = function() {
+    return this.canvas.width;
+  }
+
+  DisplayDriver.prototype.drawRectangle = function(x, y, xLength, yWidth, color, alpha) {
+    _alphaWrap(this, alpha, function(self) {
+      self.context.fillStyle = color;
+      self.context.fillRect(x, y, xLength, yWidth);
+    });
+  };
+
+  DisplayDriver.prototype.drawSquare = function(x, y, length, color, alpha) {
+    this.drawRectangle(x, y, length, length, color, alpha);
+  };
+
+  DisplayDriver.prototype.drawCircle = function(x, y, radius, color, alpha) {
+    _alphaWrap(this, alpha, function(self) {
+      self.context.fillStyle = color;
+      self.context.beginPath();
+      self.context.arc(x, y, radius, 0, 2 * Math.PI);
+      self.context.fill();
+    });
+  };
+
+  DisplayDriver.prototype.drawText = function(x, y, text, color, size, font, alpha) {
+    font = (font || "Courier New");
+    if (!Font.isValid(font)) {
+      throw font + " is an invalid font.";
+    }
+
+    _alphaWrap(this, alpha, function(self) {
+      self.context.font = size + "px " + font;
+      self.context.fillStyle = color;
+      self.context.fillText(text, x, y);
+    });
+  };
 
 
-DisplayDriver.prototype.drawLine = function(x1, y1, x2, y2, color, width) {
-  width = (width || 2);
-  this.context.strokeStyle = color;
-  this.context.lineWidth = width;
-  this.context.beginPath();
-  this.context.moveTo(x1, y1);
-  this.context.lineTo(x2, y2);
-  this.context.stroke();
-}
+  DisplayDriver.prototype.drawLine = function(x1, y1, x2, y2, color, width, alpha) {    
+    width = (width || 2);
+
+    _alphaWrap(this, alpha, function(self) {
+      self.context.strokeStyle = color;
+      self.context.lineWidth = width;
+      self.context.beginPath();
+      self.context.moveTo(x1, y1);
+      self.context.lineTo(x2, y2);
+      self.context.stroke();
+    });
+  }
+
+  return DisplayDriver;
+}();

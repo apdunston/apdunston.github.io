@@ -7,7 +7,6 @@ KeyboardDriver = function(document) {
 KeyboardDriver.prototype.constructor = KeyboardDriver;
 
 KeyboardDriver.prototype.addKeyDownListener = function(keyDownListener) {
-  console.log("added " + keyDownListener);
   this.keyDownListeners.push(keyDownListener)
 };
 

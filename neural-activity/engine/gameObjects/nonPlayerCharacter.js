@@ -46,10 +46,5 @@ MazeGame.NonPlayerCharacter = function() {
     return false;
   }
 
-  // NonPlayerCharacter.prototype.draw = function(canvas, context) { 
-  //   this.square.draw(canvas, context); 
-  // };
-
-
   return NonPlayerCharacter;
 }();

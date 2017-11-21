@@ -44,3 +44,7 @@ Game.prototype.gameEnd = function(data) {
   }
 }
 
+Game.prototype.successfulMoveEvent = function() {
+  // method stuff
+}
+

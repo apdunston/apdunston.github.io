@@ -16,7 +16,7 @@ MazeGame.LightningMazeGame.prototype.constructor = MazeGame.LightningMazeGame;
 
 MazeGame.LightningMazeGame.prototype.clearDisplays = function() {
   this.mazeDisplay.clear();
-  this.mazeDisplay.addFlashObject(this.maze);
+  this.mazeDisplay.addLightningObject(this.maze);
   this.mazeDisplay.addObject(this.player);
   this.mazeDisplay.addObject(this.goalObject);
   this.drawLoop();    

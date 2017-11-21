@@ -2,15 +2,6 @@
  * Bare Functions
  */
 Gamespace = {
-  generateId: function() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
-  },
   rainbow: ["#9400D3", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FF7F00", "#FF0000"],
   UP: "UP",
   DOWN: "DOWN",

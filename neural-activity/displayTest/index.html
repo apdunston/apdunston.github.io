@@ -7,6 +7,7 @@
   <script src="../engine/gamespace.js"></script>
   <script src="../engine/display.js"></script>
   <script src="../engine/lightningDisplay.js"></script>
+  <script src="../engine/reverseLightningDisplay.js"></script>
   <script src="../engine/drawableObject.js"></script>
   <script src="../effects/sparkle.js"></script>
   <script src="../effects/ring.js"></script>
@@ -22,7 +23,6 @@
   <script src="../engine/subDisplay.js"></script>
   <script src="../engine/gameMaster.js"></script>
   <script src="../engine/games/splitMazeGame.js"></script>
-  <script src="../engine/games/hallGame.js"></script>
   <script src="../engine/games/lightningMazeGame.js"></script>
   <script src="../engine/gameObjects/nonPlayerCharacter.js"></script>
   <script src="../engine/games/timedMazeGame.js"></script>
@@ -43,11 +43,35 @@
     canvas3 = document.getElementById("canvas3");
     canvas4 = document.getElementById("canvas4");
 
-    // TODO - implement keyPushListeners
-    keyboardDriver = new KeyboardDriver(document);
-    soundDriver = null;
+    // Display
+    displayDriver = new DisplayDriver(canvas1);
+    display = new Display(displayDriver);
+    square = new DrawableSquare(100, 100, 90, "blue");
+    blind = new DrawableSquare(0, 0, 400, "black", 0.5);    
+    square.draw(displayDriver);
+    blind.draw(displayDriver);
+    new DrawableCircle(200, 200, 40, "red", 0.25).draw(displayDriver);
+    new DrawableText(75, 350, "Hello, world!", "yellow", 0.75).draw(displayDriver);
 
-    gameMaster = new NeuralActivityGameMaster(canvas1, canvas2, canvas3, canvas4, keyboardDriver, soundDriver);
+
+    // LightningDisplay
+    displayDriver2 = new DisplayDriver(canvas2);
+    display2 = new LightningDisplay(displayDriver2);
+    square = new DrawableSquare(160, 160, 80, "red");
+    circle = new DrawableCircle(200, 200, 80, "white");
+    display2.addObject(square);
+    display2.addLightningObject(circle);
+    display2.start();
+
+    // ReverseLightningDisplay
+    displayDriver3 = new DisplayDriver(canvas3);
+    display3 = new ReverseLightningDisplay(displayDriver3);
+    square = new DrawableSquare(160, 160, 80, "red");
+    circle = new DrawableCircle(200, 200, 80, "white");
+    display3.addObject(square);
+    display3.addLightningObject(circle);
+    display3.start();
+
   }
 
   </script>
@@ -63,14 +87,14 @@
     <div>
       <canvas id="canvas1"></canvas>
     </div>
-    <div style="text-align: center">Disconnection Console X</div>
+    <div style="text-align: center">Display</div>
   </div>
   <div style="float: left; width 20px">&nbsp;</div>
   <div style="float: left">
     <div>
       <canvas id="canvas2"></canvas>
     </div>
-    <div style="text-align: center">Disconnection Console Y</div>
+    <div style="text-align: center">LightningDisplay</div>
   </div>
 </div>
 <div style="clear: both"></div>
@@ -79,7 +103,7 @@
     <div>
       <canvas id="canvas3"></canvas>
     </div>
-    <div style="text-align: center">Connections Subconsole XZ</div>
+    <div style="text-align: center">Reverse Lightning Display</div>
   </div>
   <div style="float: left; width 20px">&nbsp;</div>
   <div style="float: left">

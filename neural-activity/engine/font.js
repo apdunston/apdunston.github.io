@@ -1,7 +1,7 @@
 /**
  * Interface Enum
  */
-Fonts = {
+Font = {
   ARIAL: "Arial",
   VERDANA: "Verdana",
   TIMES_NEW_ROMAN: "Times New Roman",
@@ -10,11 +10,11 @@ Fonts = {
   SANS_SERIF: "sans-serif",
 };
 
-Fonts.values = function() {
-  return Object.keys(Fonts).map(function(key) { return Fonts[key]; });
+Font.values = function() {
+  return Object.keys(Font).map(function(key) { return Font[key]; });
 };
 
-Fonts.isValid = function(value) { 
-  return Fonts.values().includes(value);
+Font.isValid = function(value) { 
+  return Font.values().includes(value);
 };
 

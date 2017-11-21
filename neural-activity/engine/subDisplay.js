@@ -5,9 +5,9 @@ MazeGame.SubDisplay = function(drawMap, squareLength) {
 
 MazeGame.SubDisplay.prototype.constructor = MazeGame.SubDisplay;
 
-MazeGame.SubDisplay.prototype.draw = function(canvas, context) {
+MazeGame.SubDisplay.prototype.draw = function(renderer) {
   for (var i = 0; i < this.spacesArray.length; i += 1) {
-    this.displayFunction(i, this.spacesArray[i], canvas, this.squareLength);
+    this.displayFunction(i, this.spacesArray[i], renderer, this.squareLength);
   }
 }
 

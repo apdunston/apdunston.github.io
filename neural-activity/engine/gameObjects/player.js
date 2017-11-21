@@ -14,7 +14,7 @@ MazeGame.Player = function() {
 
   Player.prototype.move = function(direction) {
     var success = MazeGame.Entity.prototype.move.call(this, direction);
-    success && this.game.firework();
+    success && this.game.successfulMoveEvent();
     return success;
   }
   return Player;

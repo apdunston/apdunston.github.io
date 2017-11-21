@@ -31,8 +31,8 @@ MazeGame.SplitMazeGame.prototype.clearDisplays = function() {
 }
 
 MazeGame.SplitMazeGame.prototype.drawLoop = function() {
-  this.mazeXDisplay.drawLoop();
-  this.mazeYDisplay.drawLoop();
+  this.mazeXDisplay.render();
+  this.mazeYDisplay.render();
 }
 
 MazeGame.SplitMazeGame.prototype.win = function() {
@@ -40,7 +40,6 @@ MazeGame.SplitMazeGame.prototype.win = function() {
   var secondFlashDuration = 500;
   var secondFlashDelay = 75;
   var firstFlashDuration = secondFlashDelay + secondFlashDuration;
-  console.log(firstFlashDuration);
   this.mazeXDisplay.flash("blue", firstFlashDuration, function() {});
   setTimeout(function() {self.mazeYDisplay.flash("blue", secondFlashDuration, function() { self.gameEnd({won: true}); });}, secondFlashDelay);
 }

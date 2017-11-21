@@ -25,17 +25,17 @@ Firework.prototype.getDisplayObjects = function() {
   return [this];
 }
 
-Firework.prototype.draw = function(canvas, context) {
+Firework.prototype.draw = function(renderer) {
   var smallerLength = this.squareLength * .7;
   var i;
   this.frameCount += 1;
 
   for (i = 0; i < this.sparkles.length; i++) {
-    this.sparkles[i].draw(canvas, context);
+    this.sparkles[i].draw(renderer);
   }
   
   for (i = 0; i < this.rings.length; i++) {
-    this.rings[i].draw(canvas, context);
+    this.rings[i].draw(renderer);
   }
 
   var ringOffset = this.frameCount / this.framesPerNewRing;

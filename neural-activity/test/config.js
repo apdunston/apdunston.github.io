@@ -9,7 +9,7 @@ requirejs.config({
 
 var filesToLoad = [
   '../engine/gamespace.js',
-  '../engine/fonts.js',
+  '../engine/font.js',
   '../engine/keyboardDriver.js',
   '../engine/gamespace.js',
   '../engine/display.js',

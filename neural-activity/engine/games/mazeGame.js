@@ -24,7 +24,7 @@ MazeGame = function() {
   }
 
   MazeGame.prototype.drawLoop = function() {
-    this.mazeDisplay.drawLoop();
+    this.mazeDisplay.render();
   }
 
   MazeGame.prototype.clearDisplays = function() {
@@ -93,7 +93,7 @@ MazeGame = function() {
     this.mazeDisplay.flash("blue", 500, function() { self.gameEnd({won: true}); });
   }
 
-  MazeGame.prototype.firework = function() {
+  MazeGame.prototype.successfulMoveEvent = function() {
     if (this.neuralDisplay === null) { return; }
     this.neuralDisplay.addObject(new Firework(this.neuralDisplay.getLength()));
   };

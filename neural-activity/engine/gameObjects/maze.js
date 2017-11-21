@@ -16,13 +16,13 @@ Maze.prototype.getDisplayObjects = function() {
   return [this];
 }
 
-Maze.prototype.draw = function(canvas, context) {
+Maze.prototype.draw = function(renderer) {
   for (var i = 0; i < this.drawMap.horizontalSpaces.length; i += 1) {
-    MazeGame.Render.drawHorizontalRow(i, this.drawMap.horizontalSpaces[i], canvas, this.squareLength);
+    MazeGame.Render.drawHorizontalRow(i, this.drawMap.horizontalSpaces[i], renderer, this.squareLength);
   }
 
   for (var i = 0; i < this.drawMap.verticalSpaces.length; i += 1) {
-    MazeGame.Render.drawVerticalRow(i, this.drawMap.verticalSpaces[i], canvas, this.squareLength);
+    MazeGame.Render.drawVerticalRow(i, this.drawMap.verticalSpaces[i], renderer, this.squareLength);
   }
 }
 

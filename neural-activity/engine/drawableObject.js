@@ -2,39 +2,37 @@
  * Interface DisplayObject
  */
 DrawableObject = function() {
-  this.id = Gamespace.generateId();
+  this.alpha = 1.0;
 };
 
 DrawableObject.prototype.constructor = DrawableObject;
 
-DrawableObject.prototype.getId = function() {
-  return this.id;
-};
 DrawableObject.prototype.isDone = function() {
   return false;
 };
 
+DrawableObject.prototype.setAlpha = function(value) {
+  this.alpha = value;
+}
+
 // Constructor calls super
-DrawableSquare = function(x, y, length, color) {
+DrawableSquare = function(x, y, length, color, alpha) {
   DrawableObject.call(this);
   this.x = x;
   this.y = y;
   this.length = length;
   this.color = color;
+  this.alpha = alpha;
 };
 
 // Explicit Inheritance
 DrawableSquare.prototype = Object.create(DrawableObject.prototype);
 
 DrawableSquare.prototype.constructor = DrawableSquare;
-// Explicit Inheritance
-DrawableSquare.prototype.getId = function() {
-  console.log('This is a super method on sub.');
-};
+
 // Instance Method
-DrawableSquare.prototype.draw = function(canvas, context) {
-    context.fillStyle = this.color;
-    context.fillRect(this.x, this.y, this.length, this.length);
+DrawableSquare.prototype.draw = function(renderer) {
+    renderer.drawSquare(this.x, this.y, this.length, this.color, this.alpha);
 };
 
 DrawableSquare.prototype.isDone = function() {
@@ -62,12 +60,13 @@ DrawableSquare.prototype.setColor = function(value) {
 };
 
 // Constructor calls super
-DrawableCircle = function(x, y, radius, color) {
+DrawableCircle = function(x, y, radius, color, alpha) {
   DrawableObject.call(this);
   this.x = x;
   this.y = y;
   this.radius = radius;
   this.color = color;
+  this.alpha = alpha;
 };
 
 
@@ -76,15 +75,9 @@ DrawableCircle.prototype = Object.create(DrawableObject.prototype);
 
 DrawableCircle.prototype.constructor = DrawableCircle;
 // Explicit Inheritance
-DrawableCircle.prototype.getId = function() {
-  console.log('This is a super method on sub.');
-};
 // Instance Method
-DrawableCircle.prototype.draw = function(canvas, context) {
-    context.fillStyle = this.color;
-    context.beginPath();
-    context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-    context.fill();
+DrawableCircle.prototype.draw = function(renderer) {
+  renderer.drawCircle(this.x, this.y, this.radius, this.color, this.alpha);
 };
 
 DrawableCircle.prototype.isDone = function() {
@@ -112,12 +105,13 @@ DrawableCircle.prototype.setColor = function(value) {
 };
 
 // Constructor calls super
-DrawableText = function(x, y, text, color) {
+DrawableText = function(x, y, text, color, alpha) {
   DrawableObject.call(this);
   this.x = x;
   this.y = y;
   this.text = text;
   this.color = color;
+  this.alpha = alpha;
 };
 
 // Explicit Inheritance
@@ -125,8 +119,6 @@ DrawableText.prototype = Object.create(DrawableObject.prototype);
 DrawableText.prototype.constructor = DrawableText;
 
 // Instance Method
-DrawableText.prototype.draw = function(canvas, context) {
-  context.font = "12px Courier New";
-  context.fillStyle = this.color;
-  context.fillText(this.text, this.x, this.y);
+DrawableText.prototype.draw = function(renderer) {
+  renderer.drawText(this.x, this.y, this.text, this.color, 12, Font.COURIER_NEW, this.alpha);
 };
