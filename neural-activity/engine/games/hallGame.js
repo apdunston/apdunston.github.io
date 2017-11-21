@@ -8,6 +8,7 @@ HallGame = function(keyboardDriver, display, gridLength, hallLength, squareLengt
     this.gameLoopsPerSecond = 8;
     this.displays = [display];
     this.keyboardDriver = keyboardDriver;
+    this.reset();
   }
 
 HallGame.prototype = Object.create(Game.prototype);

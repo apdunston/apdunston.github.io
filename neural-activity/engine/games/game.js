@@ -48,3 +48,6 @@ Game.prototype.successfulMoveEvent = function() {
   // method stuff
 }
 
+Game.prototype.validMove = function(x, y, direction) {
+  return true;
+}
