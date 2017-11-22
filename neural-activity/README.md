@@ -44,6 +44,7 @@ GameObjects deal in displayObjects.
 ### Interface DisplayObject
 * #isDone()
 * #draw()
+* #setAlpha()
 
 DisplayObject has a #draw method that executes draw commands with a renderer argument
 DisplayObject can have a list of DisplayObjects. Its #draw will call their #draw-s

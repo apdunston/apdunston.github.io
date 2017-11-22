@@ -1,6 +1,16 @@
 /**
  * Interface Game
  * Interface KeyDownListener
+ *
+ * Object responsibility: Communicate state changes between player, displays, keyboardDriver, 
+ * and gameMaster
+ * 
+ * A series of meaningful choices played out across 1 or more displays
+ * using only arrow keys. 
+ * 
+ * Non-assumptions
+ * - Not necessarily played on a grid.
+ * 
  */
 Game = function() {
   var self = this;

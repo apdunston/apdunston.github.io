@@ -16,7 +16,7 @@ LightningDisplay = function(renderer, framesPerSecond) {
   this.startingAlpha = Alpha.FULLY_VISIBLE;
   this.endingAlpha = Alpha.INVISIBLE;
   this.currentAlpha = this.endingAlpha;
-  this.delta = 0.005;
+  this.delta = 0.009;
   this.resetLightning();
 };
 

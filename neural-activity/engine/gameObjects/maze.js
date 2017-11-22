@@ -6,6 +6,7 @@ Maze = function(drawMap, squareLength) {
   this.drawMap = drawMap;
   this.squareLength = squareLength;
   this.gridLength = this.drawMap.horizontalSpaces.length - 1;
+  this.alpha = Alpha.FULLY_VISIBLE;
 }
 
 Maze.prototype.constructor = Maze;
@@ -16,13 +17,17 @@ Maze.prototype.getDisplayObjects = function() {
   return [this];
 }
 
+Maze.prototype.setAlpha = function(value) {
+  this.alpha = value;
+}
+
 Maze.prototype.draw = function(renderer) {
   for (var i = 0; i < this.drawMap.horizontalSpaces.length; i += 1) {
-    MazeGame.Render.drawHorizontalRow(i, this.drawMap.horizontalSpaces[i], renderer, this.squareLength);
+    MazeGame.Render.drawHorizontalRow(i, this.drawMap.horizontalSpaces[i], renderer, this.squareLength, this.alpha);
   }
 
   for (var i = 0; i < this.drawMap.verticalSpaces.length; i += 1) {
-    MazeGame.Render.drawVerticalRow(i, this.drawMap.verticalSpaces[i], renderer, this.squareLength);
+    MazeGame.Render.drawVerticalRow(i, this.drawMap.verticalSpaces[i], renderer, this.squareLength, this.alpha);
   }
 }
 

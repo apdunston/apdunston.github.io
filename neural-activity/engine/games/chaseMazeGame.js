@@ -8,7 +8,7 @@ MazeGame.ChaseMazeGame = function() {
     Game.call(self);
     this.displays = [mazeDisplay, neuralDisplay];
     this.keyboardDriver = keyboardDriver;
-    this.npcCount = 2;
+    this.npcCount = 4;
     TimedMazeGame.call(this, keyboardDriver, mazeDisplay, neuralDisplay, gridLength, squareLength);
   };
 
@@ -45,8 +45,6 @@ MazeGame.ChaseMazeGame = function() {
   }
 
   ChaseMazeGame.prototype.reset = function() {
-    console.log("ChaseMazeGame.reset");
-    console.trace();
     this.won && (this.npcCount += 2);
     TimedMazeGame.prototype.reset.call(this);
     positions = [[5, 5], [5, 15], [15, 5], [15, 15], [10, 10], [5, 10], [10, 5], [10, 15], [15, 10]];
