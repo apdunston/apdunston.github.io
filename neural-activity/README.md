@@ -156,6 +156,8 @@ The blue win-flash should be an ever-present gameObject, the last object on the 
 ** only discover walls by bumping into them
 ** display 1 is x/y, display2 is x/z
 ** You can only see a little at a time like a torch
+** You can only see where the bad thoughts have been
+** Blue maze and yellow maze superimposed. Running into a wall switches which you're in.
 
 ## Story
 

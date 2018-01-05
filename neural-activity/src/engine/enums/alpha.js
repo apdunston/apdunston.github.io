@@ -2,8 +2,8 @@
  * Interface Enum
  */
 Alpha = {
-  FULLY_VISIBLE: 1.0,
-  PARTLY_VISIBLE: 0.4,
+  OPAQUE: 1.0,
+  TRANSLUCENT: 0.4,
   INVISIBLE: 0.0
 };
 

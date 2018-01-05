@@ -10,6 +10,7 @@ Display = function(renderer, framesPerSecond) {
   this.width = renderer.getWidth();
   this.backgroundObject = new DrawableSquare(0, 0, this.width, this.color);
   this.addObject(this.backgroundObject);
+  this.drawInterval = null;
 };
 
 Display.prototype.constructor = Display;
@@ -49,19 +50,29 @@ Display.prototype.render = function() {
 };
 
 Display.prototype.start = function() {
+  if (this.drawInterval !== null) {
+    throw "Cannot start a running display";
+  }
+
   if (this.framesPerSecond === 0) {
     return;
   }
+
   var milliseconds = 1000 / this.framesPerSecond;
   var self = this;
   this.drawInterval = setInterval(function() {self.render()}, milliseconds);
 };
 
 Display.prototype.stop = function() {
+  if (this.drawInterval === null) {
+    throw "Cannot stop a stopped display";
+  }
+
   if (this.framesPerSecond === 0) {
     return;
   }
   clearInterval(this.drawInterval);
+  this.drawInterval = null;
 };
 
 Display.prototype.clear = function() {

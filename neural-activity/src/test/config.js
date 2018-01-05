@@ -8,7 +8,10 @@ requirejs.config({
 });
 
 var filesToLoad = [
+  '../engine/enums/alpha.js',
+  '../engine/enums/displayConstants.js',
   '../engine/gamespace.js',
+  '../engine/gridTranslator.js',
   '../engine/font.js',
   '../engine/keyboardDriver.js',
   '../engine/gamespace.js',
@@ -24,7 +27,6 @@ var filesToLoad = [
   '../engine/gameObjects/player.js',
   '../engine/gameObjects/maze.js',
   '../engine/generate.js',
-  '../engine/render.js',
   '../otherPeoplesCode/jquery-3.2.1.min.js',
   '../engine/subDisplay.js',
   '../engine/gameMaster.js',

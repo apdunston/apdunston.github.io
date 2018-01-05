@@ -1,7 +1,7 @@
 ReverseLightningDisplay = function(renderer, framesPerSecond) {
   LightningDisplay.call(this, renderer, framesPerSecond);
   this.startingAlpha = Alpha.INVISIBLE;
-  this.endingAlpha = Alpha.FULLY_VISIBLE;
+  this.endingAlpha = Alpha.OPAQUE;
   this.currentAlpha = this.endingAlpha;
 }
 

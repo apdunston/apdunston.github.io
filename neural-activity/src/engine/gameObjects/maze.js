@@ -2,13 +2,18 @@
  * Interface GameObject
  * Interface DisplayObject
  */
-Maze = function(drawMap, squareLength) {
+Maze = function(drawMap, squareLength, gridTranslator) {
+  DrawableObject.call(this);
   this.drawMap = drawMap;
   this.squareLength = squareLength;
   this.gridLength = this.drawMap.horizontalSpaces.length - 1;
-  this.alpha = Alpha.FULLY_VISIBLE;
+  this.alpha = Alpha.OPAQUE;
+  this.gridTranslator = gridTranslator || new GridTranslator(0, 0, squareLength);
 }
 
+
+// Explicit Inheritance
+Maze.prototype = Object.create(DrawableObject.prototype);
 Maze.prototype.constructor = Maze;
 
 Maze.prototype.isDone = function() { return false; };
@@ -22,12 +27,14 @@ Maze.prototype.setAlpha = function(value) {
 }
 
 Maze.prototype.draw = function(renderer) {
+  DrawableObject.prototype.draw.call(this);
+
   for (var i = 0; i < this.drawMap.horizontalSpaces.length; i += 1) {
-    MazeGame.Render.drawHorizontalRow(i, this.drawMap.horizontalSpaces[i], renderer, this.squareLength, this.alpha);
+    this.gridTranslator.drawHorizontalRow(i, this.drawMap.horizontalSpaces[i], renderer, this.alpha);
   }
 
   for (var i = 0; i < this.drawMap.verticalSpaces.length; i += 1) {
-    MazeGame.Render.drawVerticalRow(i, this.drawMap.verticalSpaces[i], renderer, this.squareLength, this.alpha);
+    this.gridTranslator.drawVerticalRow(i, this.drawMap.verticalSpaces[i], renderer, this.alpha);
   }
 }
 

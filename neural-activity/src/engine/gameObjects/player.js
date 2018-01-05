@@ -3,8 +3,8 @@
  */
 MazeGame.Player = function() {
 
-  Player = function(gridLength, squareLength, game) {
-    MazeGame.Entity.call(this, gridLength, squareLength, game, "white");
+  Player = function(gridLength, squareLength, game, gridTranslator) {
+    MazeGame.Entity.call(this, gridLength, squareLength, game, "white", gridTranslator);
   };
 
   // Explicit Inheritance

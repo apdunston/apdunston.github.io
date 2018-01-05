@@ -1,5 +1,7 @@
 /**
  * Interface GameObject
+ * 
+ * A square moving on a grid.
  */
 MazeGame.Entity = function() {
 
@@ -19,12 +21,8 @@ MazeGame.Entity = function() {
     }
   }
 
-  var _inPixels = function(self, value) {
-    return value * self.squareLength + self.bump;
-  };
-
   // Public
-  Entity = function(gridLength, squareLength, game, color) {
+  Entity = function(gridLength, squareLength, game, color, gridTranslator) {
     this.x = 0; 
     this.y = 0;
     this.color = color;
@@ -34,14 +32,21 @@ MazeGame.Entity = function() {
     var shrinkage = 5;
     var size = squareLength - shrinkage;
     this.bump = shrinkage / 2;
-    this.square = new DrawableSquare(_inPixels(this, this.x), _inPixels(this, this.y), size, this.color);
+    this.gridTranslator = gridTranslator || new GridTranslator(0, 0, squareLength);
+    this.square = new DrawableSquare(0, 0, size, this.color);
+    this.positionDrawableObject();
   };
+
+  Entity.prototype.positionDrawableObject = function() {
+    xPixels = this.gridTranslator.xInPixels(this.x) + this.bump;
+    yPixels = this.gridTranslator.yInPixels(this.y) + this.bump;
+    this.square.setPosition(xPixels, yPixels);
+  }
 
   Entity.prototype.setPosition = function(x, y) { 
     this.x = x; 
     this.y = y; 
-    this.square.setX(_inPixels(this, this.x));
-    this.square.setY(_inPixels(this, this.y));    
+    this.positionDrawableObject();
   };
 
   Entity.prototype.move = function(direction) {
@@ -58,8 +63,7 @@ MazeGame.Entity = function() {
       }
 
       _wrapPosition(this);
-      this.square.setX(_inPixels(this, this.x));
-      this.square.setY(_inPixels(this, this.y));
+      this.positionDrawableObject();
       return true;
     } else {
       return false;

@@ -10,6 +10,7 @@ describe('MazeGame.Player', function() {
     // canvas = {};
     simple.mock(game, 'validMove').returnWith(true);
     simple.mock(game, 'firework');
+    simple.mock(game, 'successfulMoveEvent');
     limit = 99;
     player = new MazeGame.Player(limit+1, 10, game);
   });

@@ -13,7 +13,7 @@ LightningDisplay = function(renderer, framesPerSecond) {
   this.stopFrame = 300;
   this.framesPerSecond = framesPerSecond;
   this.lightningObjects = [];
-  this.startingAlpha = Alpha.FULLY_VISIBLE;
+  this.startingAlpha = Alpha.OPAQUE;
   this.endingAlpha = Alpha.INVISIBLE;
   this.currentAlpha = this.endingAlpha;
   this.delta = 0.009;
@@ -52,7 +52,7 @@ LightningDisplay.prototype.advanceLightning = function() {
   this.currentFlashFrame += 1;
 
   if (this.flashFrames.includes(this.currentFlashFrame)) {
-    this.currentAlpha = Alpha.PARTLY_VISIBLE;
+    this.currentAlpha = Alpha.TRANSLUCENT;
   }
 
   if (this.currentFlashFrame >= this.stopFrame) {

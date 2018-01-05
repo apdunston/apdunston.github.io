@@ -2,13 +2,16 @@
 <head>
   <script src="../engine/font.js"></script>
   <script src="../engine/enums/alpha.js"></script>
+  <script src="../engine/enums/displayConstants.js"></script>
   <script src="../engine/keyboardDriver.js"></script>
   <script src="../engine/displayDriver.js"></script>
+  <script src="../engine/offsetRenderer.js"></script>
   <script src="../engine/gamespace.js"></script>
   <script src="../engine/display.js"></script>
   <script src="../engine/lightningDisplay.js"></script>
   <script src="../engine/reverseLightningDisplay.js"></script>
   <script src="../engine/drawableObject.js"></script>
+  <script src="../engine/displayObjects/blinkingCursor.js"></script>
   <script src="../effects/sparkle.js"></script>
   <script src="../effects/ring.js"></script>
   <script src="../effects/firework.js"></script>
@@ -17,12 +20,15 @@
   <script src="../engine/gameObjects/entity.js"></script>
   <script src="../engine/gameObjects/player.js"></script>
   <script src="../engine/gameObjects/maze.js"></script>
+  <script src="../engine/gameObjects/hall.js"></script>
   <script src="../engine/generate.js"></script>
-  <script src="../engine/render.js"></script>
+  <script src="../engine/gridTranslator.js"></script>
   <script src="../otherPeoplesCode/jquery-3.2.1.min.js"></script>
   <script src="../engine/subDisplay.js"></script>
   <script src="../engine/gameMaster.js"></script>
   <script src="../engine/games/splitMazeGame.js"></script>
+  <script src="../engine/games/hallGame.js"></script>
+  <script src="../engine/games/remedialGame.js"></script>
   <script src="../engine/games/lightningMazeGame.js"></script>
   <script src="../engine/gameObjects/nonPlayerCharacter.js"></script>
   <script src="../engine/games/timedMazeGame.js"></script>
@@ -42,36 +48,14 @@
     canvas2 = document.getElementById("canvas2");
     canvas3 = document.getElementById("canvas3");
     canvas4 = document.getElementById("canvas4");
+    canvas5 = document.getElementById("canvas5");
+    canvas6 = document.getElementById("canvas6");
 
-    // Display
-    displayDriver = new DisplayDriver(canvas1);
-    display = new Display(displayDriver);
-    square = new DrawableSquare(100, 100, 90, "blue");
-    blind = new DrawableSquare(0, 0, 400, "black", 0.5);    
-    square.draw(displayDriver);
-    blind.draw(displayDriver);
-    new DrawableCircle(200, 200, 40, "red", 0.25).draw(displayDriver);
-    new DrawableText(75, 350, "Hello, world!", "yellow", 0.75).draw(displayDriver);
+    // TODO - implement keyPushListeners
+    keyboardDriver = new KeyboardDriver(document);
+    soundDriver = null;
 
-
-    // LightningDisplay
-    displayDriver2 = new DisplayDriver(canvas2);
-    display2 = new LightningDisplay(displayDriver2);
-    square = new DrawableSquare(160, 160, 80, "red");
-    circle = new DrawableCircle(200, 200, 80, "white");
-    display2.addObject(square);
-    display2.addLightningObject(circle);
-    display2.start();
-
-    // ReverseLightningDisplay
-    displayDriver3 = new DisplayDriver(canvas3);
-    display3 = new ReverseLightningDisplay(displayDriver3);
-    square = new DrawableSquare(160, 160, 80, "red");
-    circle = new DrawableCircle(200, 200, 80, "white");
-    display3.addObject(square);
-    display3.addLightningObject(circle);
-    display3.start();
-
+    gameMaster = new NeuralActivityGameMaster(canvas1, canvas2, canvas3, canvas4, canvas5, canvas6, keyboardDriver, soundDriver);
   }
 
   </script>
@@ -87,31 +71,48 @@
     <div>
       <canvas id="canvas1"></canvas>
     </div>
-    <div style="text-align: center">Display</div>
+    <div style="text-align: center">Connections Console XY</div>
   </div>
   <div style="float: left; width 20px">&nbsp;</div>
   <div style="float: left">
     <div>
       <canvas id="canvas2"></canvas>
     </div>
-    <div style="text-align: center">LightningDisplay</div>
-  </div>
-</div>
-<div style="clear: both"></div>
-<div>
-  <div style="float: left">
-    <div>
-      <canvas id="canvas3"></canvas>
-    </div>
-    <div style="text-align: center">Reverse Lightning Display</div>
+    <div style="text-align: center">Status Console</div>
   </div>
   <div style="float: left; width 20px">&nbsp;</div>
   <div style="float: left">
     <div>
+      <canvas id="canvas3"></canvas>
+    </div>
+    <div style="text-align: center">Connections Console XZ</div>
+  </div>
+  <div style="float: left; width 20px">&nbsp;</div>
+</div>
+<div style="clear: both; height: 1em"></div>
+<div>
+  <div style="float: left">
+    <div>
       <canvas id="canvas4"></canvas>
+    </div>
+    <div style="text-align: center">Disconnection Console X</div>
+  </div>
+</div>
+  <div style="float: left; width 20px">&nbsp;</div>
+  <div style="float: left">
+    <div>
+      <canvas id="canvas5"></canvas>
     </div>
     <div style="text-align: center">Neural Activity</div>
   </div>
+  <div style="float: left; width 20px">&nbsp;</div>
+  <div style="float: left">
+    <div>
+      <canvas id="canvas6"></canvas>
+    </div>
+    <div style="text-align: center">Disconnection Console Y</div>
+  </div>
+  <div style="float: left; width 20px">&nbsp;</div>
 </div>
 <div style="clear: both;"></div>
 </body>
