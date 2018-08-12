@@ -1,18 +1,21 @@
+"use strict";
+
 /**
  * Interface GameObject
  * Interface DisplayObject
  */
-Hall = function(squareLength, hallLength, gridTranslator) {
+
+var Hall = function Hall(squareLength, hallLength, gridTranslator) {
   this.hallLength = hallLength;
   Maze.call(this, this.makeDrawMap(), squareLength, gridTranslator); // super()
-}
+};
 
 Hall.prototype = Object.create(Maze.prototype);
 Hall.prototype.constructor = Hall;
 
-Hall.prototype.makeDrawMap = function() {
+Hall.prototype.makeDrawMap = function () {
   horizontalSpaces = [];
-  verticalSpaces = [[],[]];
+  verticalSpaces = [[], []];
 
   for (var i = 0; i < this.hallLength; i++) {
     horizontalSpaces.push(false);
@@ -28,4 +31,4 @@ Hall.prototype.makeDrawMap = function() {
     horizontalSpaces: horizontalSpaces,
     verticalSpaces: verticalSpaces
   };
-}
+};

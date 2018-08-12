@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Interface Game
  * Interface KeyPushListener
@@ -25,13 +27,14 @@
  *   # setBehavior(func)
  *   # trigger(event)
  */
-MazeGame.MultiMaze = function() {
 
-  MultiMaze = function() {
+MazeGame.MultiMaze = function () {
+
+  var MultiMaze = function MultiMaze() {
     this.maze1;
     this.maze2;
     this.maze3;
-  }
+  };
 
   return MultiMaze;
 }();

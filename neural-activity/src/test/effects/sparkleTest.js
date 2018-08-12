@@ -1,11 +1,13 @@
+'use strict';
+
 require('../config.js');
-var simple = require('simple-mock')
+var simple = require('simple-mock');
 var assert = require('assert');
 
-describe('Sparkle', function() {
+describe('Sparkle', function () {
   var context, canvas;
 
-  before(function() {
+  before(function () {
     context = {};
     canvas = {};
     simple.mock(context, 'fillRect');
@@ -13,9 +15,9 @@ describe('Sparkle', function() {
     simple.mock(renderer, 'drawSquare');
   });
 
-  describe('#isHalfDone()', function() {
+  describe('#isHalfDone()', function () {
 
-    it('should return false when it\'s not', function() {
+    it('should return false when it\'s not', function () {
       var frames = 15;
       var sparkle = new Sparkle(0, 0, 5, frames, 0);
       sparkle.draw(renderer);
@@ -23,7 +25,7 @@ describe('Sparkle', function() {
       assert(!sparkle.isHalfDone());
     });
 
-    it('should return true when it is', function() {
+    it('should return true when it is', function () {
       var frames = 4;
       var sparkle = new Sparkle(0, 0, 5, frames, 0);
       sparkle.draw(renderer);
@@ -32,8 +34,8 @@ describe('Sparkle', function() {
     });
   });
 
-  describe('#isDone()', function() {
-    it('should return false when it\'s not', function() {
+  describe('#isDone()', function () {
+    it('should return false when it\'s not', function () {
       var frames = 5;
       var sparkle = new Sparkle(0, 0, 5, frames, 0);
       sparkle.draw(renderer);
@@ -46,7 +48,7 @@ describe('Sparkle', function() {
       assert(!sparkle.isDone());
     });
 
-    it('should return true when it is', function() {
+    it('should return true when it is', function () {
       var frames = 4;
       var sparkle = new Sparkle(0, 0, 5, frames, 0);
       sparkle.draw(renderer);
@@ -57,7 +59,7 @@ describe('Sparkle', function() {
     });
   });
 
-  describe('#draw()', function() {
+  describe('#draw()', function () {
     it('should not exceed max frame count');
     it('should move y+ when not half done and y- when half done');
     it('should set appropriate color');

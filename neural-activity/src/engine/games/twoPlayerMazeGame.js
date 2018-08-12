@@ -5,8 +5,8 @@
  * Interface KeyDownListener
  */
 
-var MazeGame = function () {
-  var MazeGame = function MazeGame(keyboardDriver, mazeDisplay, neuralDisplay, gridLength, squareLength) {
+var TwoPlayerMazeGame = function () {
+  var TwoPlayerMazeGame = function TwoPlayerMazeGame(keyboardDriver, mazeDisplay, neuralDisplay, gridLength, squareLength) {
     var self = this;
     Game.call(self);
     this.gridLength = gridLength;
@@ -18,38 +18,41 @@ var MazeGame = function () {
     this.keyboardDriver = keyboardDriver;
   };
 
-  MazeGame.prototype = Object.create(Game.prototype);
+  TwoPlayerMazeGame.prototype = Object.create(Game.prototype);
 
-  MazeGame.prototype.start = function () {
+  TwoPlayerMazeGame.prototype.start = function () {
     var self = this;
     Game.prototype.start.call(self);
     this.reset();
   };
 
-  MazeGame.prototype.drawLoop = function () {
+  TwoPlayerMazeGame.prototype.drawLoop = function () {
     this.mazeDisplay.render();
   };
 
-  MazeGame.prototype.clearDisplays = function () {
+  TwoPlayerMazeGame.prototype.clearDisplays = function () {
     this.mazeDisplay.clear();
     this.mazeDisplay.addObject(this.maze);
     this.mazeDisplay.addObject(this.player);
+    this.mazeDisplay.addObject(this.player2);
     this.mazeDisplay.addObject(this.goalObject);
     this.drawLoop();
   };
 
-  MazeGame.prototype.reset = function () {
+  TwoPlayerMazeGame.prototype.reset = function () {
     this.won = false;
     this.map = MazeGame.generate(this.gridLength, this.gridLength);
     this.drawMap = MazeGame.translate(this.map);
     this.maze = new Maze(this.drawMap, this.squareLength);
     this.player = new MazeGame.Player(this.gridLength, this.squareLength, this);
+    this.player2 = new MazeGame.Player(this.gridLength, this.squareLength, this);
+    this.player2.setColor("#555555");
     var goalSquareLocation = this.gridLength * this.squareLength - this.squareLength / 2;
     this.goalObject = new DrawableCircle(goalSquareLocation, goalSquareLocation, this.squareLength / 4, "green");
     this.clearDisplays();
   };
 
-  MazeGame.prototype.validMove = function (x, y, direction) {
+  TwoPlayerMazeGame.prototype.validMove = function (x, y, direction) {
     if (x === 0 && y === 0 && direction === Gamespace.UP) {
       return false;
     }
@@ -61,11 +64,11 @@ var MazeGame = function () {
     return this.maze.validMove(x, y, direction);
   };
 
-  MazeGame.prototype.getPlayer = function () {
+  TwoPlayerMazeGame.prototype.getPlayer = function () {
     return this.player;
   };
 
-  MazeGame.prototype.keyDown = function (evt) {
+  TwoPlayerMazeGame.prototype.keyDown = function (evt) {
     switch (evt.keyCode) {
       case Gamespace.LEFT_CODE:
         this.player.left();
@@ -79,6 +82,18 @@ var MazeGame = function () {
       case Gamespace.DOWN_CODE:
         this.player.down();
         break;
+      case Gamespace.A_CODE:
+        this.player2.left();
+        break;
+      case Gamespace.W_CODE:
+        this.player2.up();
+        break;
+      case Gamespace.D_CODE:
+        this.player2.right();
+        break;
+      case Gamespace.S_CODE:
+        this.player2.down();
+        break;
     }
 
     this.drawLoop();
@@ -88,11 +103,11 @@ var MazeGame = function () {
     }
   };
 
-  MazeGame.prototype.winCondition = function () {
-    return this.player.x === this.gridLength - 1 && this.player.y === this.gridLength - 1;
+  TwoPlayerMazeGame.prototype.winCondition = function () {
+    return this.player.x === this.gridLength - 1 && this.player.y === this.gridLength - 1 || this.player2.x === this.gridLength - 1 && this.player2.y === this.gridLength - 1;
   };
 
-  MazeGame.prototype.win = function () {
+  TwoPlayerMazeGame.prototype.win = function () {
     var self = this;
     this.won = true;
     this.mazeDisplay.flash("blue", 500, function () {
@@ -100,14 +115,14 @@ var MazeGame = function () {
     });
   };
 
-  MazeGame.prototype.successfulMoveEvent = function () {
+  TwoPlayerMazeGame.prototype.successfulMoveEvent = function () {
     if (this.neuralDisplay === null) {
       return;
     }
     this.neuralDisplay.addObject(new Firework(this.neuralDisplay.getLength()));
   };
 
-  MazeGame.prototype.validMoves = function (x, y) {
+  TwoPlayerMazeGame.prototype.validMoves = function (x, y) {
     moves = [Gamespace.UP, Gamespace.DOWN, Gamespace.LEFT, Gamespace.RIGHT];
     validMoves = [];
 
@@ -120,5 +135,5 @@ var MazeGame = function () {
     return validMoves;
   };
 
-  return MazeGame;
+  return TwoPlayerMazeGame;
 }();

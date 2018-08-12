@@ -1,0 +1,29 @@
+<html>
+<head>
+  <script src="otherPeoplesCode/jquery-3.2.1.min.js"></script>
+  <script data-main="build" src="otherPeoplesCode/require.js"></script>
+  <script src="build/2player.js"></script>
+</head>
+<body style="font-family: 'Courier New', Courier, monospace; background-color: #333333; color: white; height: 100%; overflow: hidden;">
+<div style="margin-bottom: 1em">
+  <button onClick="javascript:gameMaster.previous();">Previous Game</button>
+  <button onClick="javascript:gameMaster.next();">Next Game</button>
+</div>
+
+<div>
+  <div style="float: left">
+    <div>
+      <canvas id="canvas1"></canvas>
+    </div>
+    <div style="text-align: center">Connections Console XY</div>
+  </div>
+  <div style="float: left; width 20px">&nbsp;</div>
+  <div style="float: left">
+    <div>
+      <canvas id="canvas2"></canvas>
+    </div>
+    <div style="text-align: center">Status Console</div>
+  </div>
+<div style="clear: both;"></div>
+</body>
+</html>

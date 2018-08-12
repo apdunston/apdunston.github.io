@@ -1,7 +1,10 @@
+"use strict";
+
 /**
  * Interface Display
  */
-Display = function(renderer, framesPerSecond) {
+
+var Display = function Display(renderer, framesPerSecond) {
   this.color = "black";
   this.renderer = renderer;
   this.framesPerSecond = framesPerSecond;
@@ -15,18 +18,18 @@ Display = function(renderer, framesPerSecond) {
 
 Display.prototype.constructor = Display;
 
-Display.prototype.setColor = function(value) {
+Display.prototype.setColor = function (value) {
   this.color = value;
   this.objects[0] = new DrawableSquare(0, 0, this.width, this.color);
   this.render();
 };
 
-Display.prototype.flash = function(color, time, callback) {
+Display.prototype.flash = function (color, time, callback) {
   var self = this;
   time = time ? time : 200;
   var flashObject = new DrawableSquare(0, 0, this.width, color);
   this.objects.push(flashObject);
-  setTimeout(function() { 
+  setTimeout(function () {
     self.objects.pop();
     if (callback) {
       callback();
@@ -34,8 +37,10 @@ Display.prototype.flash = function(color, time, callback) {
   }, time);
 };
 
-Display.prototype.render = function() {
-  if (this.backgroundOnly) { return; }
+Display.prototype.render = function () {
+  if (this.backgroundOnly) {
+    return;
+  }
 
   for (var x = 0; x < this.objects.length; x++) {
     this.objects[x].draw(this.renderer);
@@ -49,7 +54,7 @@ Display.prototype.render = function() {
   }
 };
 
-Display.prototype.start = function() {
+Display.prototype.start = function () {
   if (this.drawInterval !== null) {
     throw "Cannot start a running display";
   }
@@ -60,10 +65,12 @@ Display.prototype.start = function() {
 
   var milliseconds = 1000 / this.framesPerSecond;
   var self = this;
-  this.drawInterval = setInterval(function() {self.render()}, milliseconds);
+  this.drawInterval = setInterval(function () {
+    self.render();
+  }, milliseconds);
 };
 
-Display.prototype.stop = function() {
+Display.prototype.stop = function () {
   if (this.drawInterval === null) {
     throw "Cannot stop a stopped display";
   }
@@ -75,17 +82,17 @@ Display.prototype.stop = function() {
   this.drawInterval = null;
 };
 
-Display.prototype.clear = function() {
+Display.prototype.clear = function () {
   this.objects = [];
   this.addObject(this.backgroundObject);
   this.render();
 };
 
-Display.prototype.addObject = function(object) {
+Display.prototype.addObject = function (object) {
   this.objects.push(object);
   this.backgroundOnly = false;
 };
 
-Display.prototype.getLength = function() {
+Display.prototype.getLength = function () {
   return this.width;
 };

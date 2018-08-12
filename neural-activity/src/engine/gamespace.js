@@ -1,7 +1,10 @@
+"use strict";
+
 /**
  * Bare Functions
  */
-Gamespace = {
+
+var Gamespace = {
   rainbow: ["#9400D3", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FF7F00", "#FF0000"],
   UP: "UP",
   DOWN: "DOWN",
@@ -11,8 +14,12 @@ Gamespace = {
   DOWN_CODE: 40,
   LEFT_CODE: 37,
   RIGHT_CODE: 39,
-  oppositeOf: function(direction) {
-    switch(direction) {
+  W_CODE: 87,
+  A_CODE: 65,
+  S_CODE: 83,
+  D_CODE: 68,
+  oppositeOf: function oppositeOf(direction) {
+    switch (direction) {
       case Gamespace.UP:
         return Gamespace.DOWN;
       case Gamespace.DOWN:
@@ -24,13 +31,3 @@ Gamespace = {
     }
   }
 };
-
-
-
-
-
-
-
-
-
-

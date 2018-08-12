@@ -1,9 +1,13 @@
+"use strict";
+
 /**
  * Interface Game
  * Interface KeyPushListener
  */
-MazeGame.ChaseMazeGame = function() {
-  ChaseMazeGame = function(keyboardDriver, mazeDisplay, neuralDisplay, gridLength, squareLength) {
+
+MazeGame.ChaseMazeGame = function () {
+  var TimedMazeGame = MazeGame.TimedMazeGame;
+  var ChaseMazeGame = function ChaseMazeGame(keyboardDriver, mazeDisplay, neuralDisplay, gridLength, squareLength) {
     var self = this;
     Game.call(self);
     this.displays = [mazeDisplay, neuralDisplay];
@@ -17,61 +21,65 @@ MazeGame.ChaseMazeGame = function() {
 
   ChaseMazeGame.prototype.constructor = ChaseMazeGame;
 
-  ChaseMazeGame.prototype.start = function() {
+  ChaseMazeGame.prototype.start = function () {
     var self = this;
     Game.prototype.start.call(self);
     this.reset();
-    this.mazeDisplay.start();    
+    this.mazeDisplay.start();
     this.startGameLoop();
 
     text = new DrawableText(10, 30, "WARNING: Bad thoughts approaching.", "white");
     this.neuralDisplay.addObject(text);
-  }
+  };
 
-  ChaseMazeGame.prototype.stop = function() {
+  ChaseMazeGame.prototype.stop = function () {
     var self = this;
     Game.prototype.stop.call(self);
     this.stopGameLoop();
-  }
+  };
 
-  ChaseMazeGame.prototype.end = function() {
+  ChaseMazeGame.prototype.end = function () {
     var self = this;
-    this.mazeDisplay.flash("red", 500, function() { self.reset(); });
-  }
+    this.mazeDisplay.flash("red", 500, function () {
+      self.reset();
+    });
+  };
 
-  ChaseMazeGame.prototype.keyDown = function(evt) {
+  ChaseMazeGame.prototype.keyDown = function (evt) {
     MazeGame.prototype.keyDown.call(this, evt);
     this.collisionCheck();
-  }
+  };
 
-  ChaseMazeGame.prototype.reset = function() {
+  ChaseMazeGame.prototype.reset = function () {
     this.won && (this.npcCount += 2);
     TimedMazeGame.prototype.reset.call(this);
     positions = [[5, 5], [5, 15], [15, 5], [15, 15], [10, 10], [5, 10], [10, 5], [10, 15], [15, 10]];
-    
+
     if (this.npcCount >= positions.length) {
-      this.gameEnd({won: true});
+      this.gameEnd({ won: true });
     }
 
     for (var i = 0; i < this.npcCount; i++) {
       npc = new MazeGame.NonPlayerCharacter(this.gridLength, this.squareLength, this);
       npc.setPosition(positions[i][0], positions[i][1]);
       this.addObject(npc);
-      this.mazeDisplay.addObject(npc);    
+      this.mazeDisplay.addObject(npc);
     }
-  }
+  };
 
-  ChaseMazeGame.prototype.collisionCheck = function() {
+  ChaseMazeGame.prototype.collisionCheck = function () {
     for (var i = 0; i < this.objects.length; i++) {
       this.player.collidesWith(this.objects[i]) && this.end();
     }
   };
 
-  ChaseMazeGame.prototype.win = function() {
+  ChaseMazeGame.prototype.win = function () {
     var self = this;
     this.won = true;
-    this.mazeDisplay.flash("blue", 500, function() { self.reset(); });
-  }
+    this.mazeDisplay.flash("blue", 500, function () {
+      self.reset();
+    });
+  };
 
   return ChaseMazeGame;
 }();

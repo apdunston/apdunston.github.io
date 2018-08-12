@@ -1,11 +1,14 @@
+"use strict";
+
 /**
  * Interface GameObject via Entity
  */
-MazeGame.NonPlayerCharacter = function() {
+
+MazeGame.NonPlayerCharacter = function () {
 
   // Go a random direction that's not exactly where you came from
   // unless that's the way you have to go.
-  _move = function(self) {
+  let _move = function _move(self) {
     opposite = Gamespace.oppositeOf(self.lastDirection);
     validMoves = self.game.validMoves(self.x, self.y);
 
@@ -21,9 +24,9 @@ MazeGame.NonPlayerCharacter = function() {
     self.move(direction);
     self.lastDirection = validMoves[index];
     self.game.collisionCheck();
-  }
+  };
 
-  NonPlayerCharacter = function(gridLength, squareLength, game) {
+  var NonPlayerCharacter = function NonPlayerCharacter(gridLength, squareLength, game) {
     MazeGame.Entity.call(this, gridLength, squareLength, game, "red");
     this.loopCount = 0;
     this.lastDirection = Gamespace.UP;
@@ -34,17 +37,17 @@ MazeGame.NonPlayerCharacter = function() {
 
   NonPlayerCharacter.prototype.constructor = NonPlayerCharacter;
 
-  NonPlayerCharacter.prototype.gameLoop = function() {
+  NonPlayerCharacter.prototype.gameLoop = function () {
     if (this.loopCount % 4 == 0) {
       _move(this);
     }
 
     this.loopCount += 1;
-  }
+  };
 
-  NonPlayerCharacter.prototype.isDone = function() {
+  NonPlayerCharacter.prototype.isDone = function () {
     return false;
-  }
+  };
 
   return NonPlayerCharacter;
 }();

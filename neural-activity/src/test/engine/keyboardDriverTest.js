@@ -1,18 +1,20 @@
+'use strict';
+
 require('../config.js');
-var simple = require('simple-mock')
+var simple = require('simple-mock');
 var assert = require('assert');
 
-describe('KeyboardDriver', function() {
+describe('KeyboardDriver', function () {
   var context, canvas;
 
-  beforeEach(function() {
+  beforeEach(function () {
     document = {};
     simple.mock(document, 'addEventListener');
     keyboardDriver = new KeyboardDriver(document);
   });
 
-  describe('#addKeyDownListener', function() {
-    it('should add and remove', function() {
+  describe('#addKeyDownListener', function () {
+    it('should add and remove', function () {
       var myObject = { name: "MyObject" };
       var myObject2 = { name: "MyObject2" };
       assert.equal(0, keyboardDriver.getKeyDownListeners().length);
@@ -26,8 +28,8 @@ describe('KeyboardDriver', function() {
     });
   });
 
-  describe('#removeKeyDownListener', function() {
-    it('should remove objects', function() {
+  describe('#removeKeyDownListener', function () {
+    it('should remove objects', function () {
       var myObject = { name: "MyObject" };
       var myObject2 = { name: "MyObject2" };
       keyboardDriver.addKeyDownListener(myObject);
@@ -41,8 +43,8 @@ describe('KeyboardDriver', function() {
     });
   });
 
-  describe('#keyDown', function() {
-    it('should call keyDown on added listeners', function() {
+  describe('#keyDown', function () {
+    it('should call keyDown on added listeners', function () {
       var myObject = { name: "MyObject" };
       var myObject2 = { name: "MyObject2" };
       simple.mock(myObject, 'keyDown');
@@ -55,7 +57,7 @@ describe('KeyboardDriver', function() {
       assert.equal(1, myObject.keyDown.callCount);
       assert.equal(1, myObject2.keyDown.callCount);
     });
-    it('should not call keyDown on removed listeners', function() {
+    it('should not call keyDown on removed listeners', function () {
       var myObject = { name: "MyObject" };
       var myObject2 = { name: "MyObject2" };
       simple.mock(myObject, 'keyDown');
@@ -70,5 +72,4 @@ describe('KeyboardDriver', function() {
       assert.equal(0, myObject2.keyDown.callCount);
     });
   });
-
 });

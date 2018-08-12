@@ -1,39 +1,41 @@
-HallGameStates = {
+"use strict";
+
+let HallGameStates = {
   BEGINNING: 1,
   MIDDLE: 2,
   END: 3
-}
+};
 
-HallGame = function(keyboardDriver, mazeDisplay, statusDisplay, gridLength, hallLength, squareLength) {
-    var self = this;
-    Game.call(self);
-    this.statusDisplay = statusDisplay;
-    this.gridLength = gridLength;
-    this.hallLength = hallLength;
-    this.squareLength = squareLength;
-    this.mazeDisplay = mazeDisplay;
-    this.gameLoopsPerSecond = 8;
-    this.keyboardDriver = keyboardDriver;
-    this.displays = [mazeDisplay, statusDisplay];
-    xOffset = this.gridLength * this.squareLength / 2 - this.hallLength * this.squareLength / 2;
-    yOffset = this.gridLength * this.squareLength / 2 - this.squareLength / 2;
-    this.gridTranslator = new GridTranslator(xOffset, yOffset, squareLength);
-  }
+var HallGame = function HallGame(keyboardDriver, mazeDisplay, statusDisplay, gridLength, hallLength, squareLength) {
+  var self = this;
+  Game.call(self);
+  this.statusDisplay = statusDisplay;
+  this.gridLength = gridLength;
+  this.hallLength = hallLength;
+  this.squareLength = squareLength;
+  this.mazeDisplay = mazeDisplay;
+  this.gameLoopsPerSecond = 8;
+  this.keyboardDriver = keyboardDriver;
+  this.displays = [mazeDisplay, statusDisplay];
+  xOffset = this.gridLength * this.squareLength / 2 - this.hallLength * this.squareLength / 2;
+  yOffset = this.gridLength * this.squareLength / 2 - this.squareLength / 2;
+  this.gridTranslator = new GridTranslator(xOffset, yOffset, squareLength);
+};
 
 HallGame.prototype = Object.create(Game.prototype);
 HallGame.prototype.constructor = HallGame;
 
-HallGame.prototype.start = function() {
-  Game.prototype.start.call(this);  
+HallGame.prototype.start = function () {
+  Game.prototype.start.call(this);
   this.state = HallGameStates.BEGINNING;
   var margin = DisplayConstants.TEXT_MARGIN;
   var textSize = DisplayConstants.TEXT_SIZE;
   this.blinkingCursor = new BlinkingCursor(margin * 2 + 12 * textSize, margin * 1.3, "white");
   this.statusDisplay.addObject(new DrawableText(margin, 2 * margin, "> Press the arrow keys", "white"));
   this.statusDisplay.addObject(this.blinkingCursor);
-}
+};
 
-HallGame.prototype.proceedToMiddle = function() {
+HallGame.prototype.proceedToMiddle = function () {
   var self = this;
   this.state = HallGameStates.MIDDLE;
   this.blinkingCursor.setIsDone(true);
@@ -41,10 +43,12 @@ HallGame.prototype.proceedToMiddle = function() {
   this.player.setPosition(0, 0);
   this.mazeDisplay.clear();
   this.mazeDisplay.addObject(this.player);
-  setTimeout(function() { self.proceedToEnd() }, 500);
-}
+  setTimeout(function () {
+    self.proceedToEnd();
+  }, 500);
+};
 
-HallGame.prototype.proceedToEnd = function() {
+HallGame.prototype.proceedToEnd = function () {
   var self = this;
   var margin = DisplayConstants.TEXT_MARGIN;
   var textSize = DisplayConstants.TEXT_SIZE;
@@ -58,23 +62,25 @@ HallGame.prototype.proceedToEnd = function() {
   this.maze.fadeIn();
 
   this.placeGoalObject();
-  setTimeout(function() { self.goalObject.fadeIn() }, 500);
-}
+  setTimeout(function () {
+    self.goalObject.fadeIn();
+  }, 500);
+};
 
-HallGame.prototype.placeGoalObject = function() {
+HallGame.prototype.placeGoalObject = function () {
   var x = this.gridTranslator.xInPixels(this.hallLength) - this.squareLength / 2;
   var y = this.gridTranslator.yInPixels(1) - this.squareLength / 2;
   this.goalObject = new DrawableCircle(x, y, this.squareLength / 4, "green");
   this.goalObject.setAlpha(Alpha.INVISIBLE);
-  this.mazeDisplay.addObject(this.goalObject);  
-}
+  this.mazeDisplay.addObject(this.goalObject);
+};
 
-HallGame.prototype.keyDown = function(evt) {
+HallGame.prototype.keyDown = function (evt) {
   if (this.state === HallGameStates.END) {
     return this.keyDownEndState(evt);
   }
 
-  switch(evt.keyCode) {
+  switch (evt.keyCode) {
     case Gamespace.LEFT_CODE:
     case Gamespace.UP_CODE:
     case Gamespace.RIGHT_CODE:
@@ -83,7 +89,7 @@ HallGame.prototype.keyDown = function(evt) {
   }
 };
 
-HallGame.prototype.advanceState = function() {
+HallGame.prototype.advanceState = function () {
   if (this.state === HallGameStates.BEGINNING) {
     this.proceedToMiddle();
     return;
@@ -91,13 +97,15 @@ HallGame.prototype.advanceState = function() {
 
   if (this.state === HallGameStates.MIDDLE) {
     this.proceedToEnd();
-  }  
-}
+  }
+};
 
-HallGame.prototype.keyDownEndState = function(evt) {
-  switch(evt.keyCode) {
+HallGame.prototype.keyDownEndState = function (evt) {
+  switch (evt.keyCode) {
     case Gamespace.LEFT_CODE:
-      if (this.player.getX() !== 0) { this.player.left(); }
+      if (this.player.getX() !== 0) {
+        this.player.left();
+      }
       break;
     case Gamespace.UP_CODE:
       // this.player.up();
@@ -110,17 +118,19 @@ HallGame.prototype.keyDownEndState = function(evt) {
       break;
   }
 
-  if(this.winCondition()) {
+  if (this.winCondition()) {
     this.win();
   }
-}
+};
 
-HallGame.prototype.winCondition = function() {
+HallGame.prototype.winCondition = function () {
   return this.player.getX() === this.hallLength - 1;
-}
+};
 
-HallGame.prototype.win = function() {
+HallGame.prototype.win = function () {
   var self = this;
   this.won = true;
-  this.mazeDisplay.flash("blue", 500, function() { self.gameEnd({won: true}); });
-}
+  this.mazeDisplay.flash("blue", 500, function () {
+    self.gameEnd({ won: true });
+  });
+};

@@ -1,9 +1,12 @@
+"use strict";
+
 /**
  * Interface Game via MazeGame
  * Interface KeyPushListener
  */
-MazeGame.TimedMazeGame = function() {
-  TimedMazeGame = function(keyboardDriver, mazeDisplay, neuralDisplay, gridLength, squareLength) {
+
+MazeGame.TimedMazeGame = function () {
+  var TimedMazeGame = function TimedMazeGame(keyboardDriver, mazeDisplay, neuralDisplay, gridLength, squareLength) {
     this.objects = [];
     MazeGame.call(this, keyboardDriver, mazeDisplay, neuralDisplay, gridLength, squareLength);
   };
@@ -13,7 +16,7 @@ MazeGame.TimedMazeGame = function() {
 
   TimedMazeGame.prototype.constructor = TimedMazeGame;
 
-  TimedMazeGame.prototype.gameLoop = function() {
+  TimedMazeGame.prototype.gameLoop = function () {
     for (var x = 0; x < this.objects.length; x++) {
       this.objects[x].gameLoop();
       if (this.objects[x].isDone()) {
@@ -22,30 +25,32 @@ MazeGame.TimedMazeGame = function() {
     }
   };
 
-  TimedMazeGame.prototype.startGameLoop = function() {
+  TimedMazeGame.prototype.startGameLoop = function () {
     if (this.gameLoopsPerSecond === 0) {
       return;
     }
     var milliseconds = 1000 / this.gameLoopsPerSecond;
     var self = this;
-    this.gameInterval = setInterval(function() {self.gameLoop()}, milliseconds);
+    this.gameInterval = setInterval(function () {
+      self.gameLoop();
+    }, milliseconds);
   };
 
-  TimedMazeGame.prototype.stopGameLoop = function() {
+  TimedMazeGame.prototype.stopGameLoop = function () {
     if (this.gameLoopsPerSecond === 0) {
       return;
     }
     clearInterval(this.gameInterval);
   };
 
-  TimedMazeGame.prototype.addObject = function(object) {
+  TimedMazeGame.prototype.addObject = function (object) {
     this.objects.push(object);
-  }
-  
-  TimedMazeGame.prototype.reset = function() {
+  };
+
+  TimedMazeGame.prototype.reset = function () {
     this.objects = [];
     MazeGame.prototype.reset.call(this);
-  }
+  };
 
   return TimedMazeGame;
 }();

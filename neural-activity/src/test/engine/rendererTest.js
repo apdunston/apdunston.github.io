@@ -1,17 +1,19 @@
+'use strict';
+
 require('../config.js');
-var simple = require('simple-mock')
+var simple = require('simple-mock');
 var assert = require('assert');
 
-describe('Renderer', function() {
+describe('Renderer', function () {
   var context, canvas;
 
-  before(function() {
+  before(function () {
     context = {};
     canvas = {};
     simple.mock(context, 'fillRect');
   });
 
-  describe('#drawLine()', function() {
+  describe('#drawLine()', function () {
 
     it('should draw a line minding the startX and startY');
     //   , function() {

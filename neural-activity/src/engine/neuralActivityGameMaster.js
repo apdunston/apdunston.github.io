@@ -1,7 +1,10 @@
+"use strict";
+
 /**
  * Interface GameMaster
  */
-NeuralActivityGameMaster = function(canvas1, canvas2, canvas3, canvas4, canvas5, canvas6, keyboardDriver, soundDriver) {
+
+var NeuralActivityGameMaster = function NeuralActivityGameMaster(canvas1, canvas2, canvas3, canvas4, canvas5, canvas6, keyboardDriver, soundDriver) {
   GameMaster.call(this); // super()
   var gridLength = 20;
   var squareLength = 20;
@@ -23,16 +26,15 @@ NeuralActivityGameMaster = function(canvas1, canvas2, canvas3, canvas4, canvas5,
   lightningDisplay = new LightningDisplay(new DisplayDriver(canvas1), displaySpeed);
   reverseLightningDisplay = new ReverseLightningDisplay(new DisplayDriver(canvas1), displaySpeed);
 
-  this.addGame(new HallGame(keyboardDriver, display1, display2, gridLength, hallLength, squareLength));  
-  this.addGame(new RemedialGame(keyboardDriver, display1, display2, gridLength, hallLength, squareLength));  
-  this.addGame(new MazeGame(keyboardDriver, display1, display3, gridLength, squareLength));  
+  this.addGame(new HallGame(keyboardDriver, display1, display2, gridLength, hallLength, squareLength));
+  this.addGame(new RemedialGame(keyboardDriver, display1, display2, gridLength, hallLength, squareLength));
+  this.addGame(new MazeGame(keyboardDriver, display1, display3, gridLength, squareLength));
   this.addGame(new MazeGame.SplitMazeGame(keyboardDriver, display1, display2, display3, gridLength, squareLength));
   this.addGame(new MazeGame.LightningMazeGame(keyboardDriver, reverseLightningDisplay, display3, gridLength, squareLength));
   this.addGame(new MazeGame.LightningMazeGame(keyboardDriver, lightningDisplay, display3, gridLength, squareLength));
-  this.addGame(new ChaseMazeGame(keyboardDriver, display1, display3, gridLength, squareLength));  
+  this.addGame(new ChaseMazeGame(keyboardDriver, display1, display3, gridLength, squareLength));
   this.start();
-}
+};
 
 NeuralActivityGameMaster.prototype = Object.create(GameMaster.prototype);
 NeuralActivityGameMaster.prototype.constructor = NeuralActivityGameMaster;
-

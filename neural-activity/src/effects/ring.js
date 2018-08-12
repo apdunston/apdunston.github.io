@@ -1,7 +1,10 @@
+"use strict";
+
 /**
  * Interface DisplayObject
  */
-Ring = function(x, y, squareLength, offset, sparkleDuration) {
+
+var Ring = function Ring(x, y, squareLength, offset, sparkleDuration) {
   var i, sparkleSize, pixelsSmaller, colorIndex;
   this.x = x;
   this.y = y;
@@ -10,31 +13,34 @@ Ring = function(x, y, squareLength, offset, sparkleDuration) {
   this.sparkles = [];
   this.isDoneValue = false;
   colorIndex = Math.floor(Math.random() * Gamespace.rainbow.length);
-  switch(offset) {
-    case 1: pixelsSmaller = 8; break; 
-    case 2: pixelsSmaller = 10; break; 
-    default: pixelsSmaller = (10 + 2 * (offset - 1)); break; 
+  switch (offset) {
+    case 1:
+      pixelsSmaller = 8;break;
+    case 2:
+      pixelsSmaller = 10;break;
+    default:
+      pixelsSmaller = 10 + 2 * (offset - 1);break;
   }
 
   sparkleSize = squareLength - pixelsSmaller;
   sparkleSize = sparkleSize < squareLength ? sparkleSize : 2;
 
-  applyOffset = function(value, iteration) {
+  applyOffset = function applyOffset(value, iteration) {
     return value - squareLength * offset + squareLength * iteration + pixelsSmaller / 2;
-  }
+  };
 
-  moveToOneSide = function(value) {
+  moveToOneSide = function moveToOneSide(value) {
     return value - offset * squareLength + pixelsSmaller / 2;
-  }
+  };
 
-  moveToOtherSide = function(value) {
+  moveToOtherSide = function moveToOtherSide(value) {
     return value + offset * squareLength + pixelsSmaller / 2;
-  }
+  };
 
   for (i = 0; i < offset * 2 + 1; i += 1) {
     // top
     this.sparkles.push(new Sparkle(applyOffset(x, i), moveToOneSide(y), sparkleSize, sparkleDuration, colorIndex));
-    
+
     // bottom
     this.sparkles.push(new Sparkle(applyOffset(x, i), moveToOtherSide(y), sparkleSize, sparkleDuration, colorIndex));
 
@@ -47,10 +53,9 @@ Ring = function(x, y, squareLength, offset, sparkleDuration) {
       this.sparkles.push(new Sparkle(moveToOtherSide(x), applyOffset(y, i), sparkleSize, sparkleDuration, colorIndex));
     }
   }
-}
+};
 
-
-Ring.prototype.draw = function(renderer) {
+Ring.prototype.draw = function (renderer) {
   this.isDoneValue = true;
   for (var i = 0; i < this.sparkles.length; i += 1) {
     if (!this.sparkles[i].isDone()) {
@@ -60,6 +65,6 @@ Ring.prototype.draw = function(renderer) {
   }
 };
 
-Ring.prototype.isDone = function() {
+Ring.prototype.isDone = function () {
   return this.isDoneValue;
 };
