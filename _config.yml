@@ -1,1 +1,27 @@
-theme: jekyll-theme-cayman
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            Adrian P. Dunston
+tagline:          '@bitcapulet'
+description:      'Software developer, conference speaker, and silly-video-maker'
+url:              http://bitcapulet.com
+baseurl:          /
+
+author:
+  name:           'Adrian P. Dunston'
+  url:            https://twitter.com/bitcapulet
+
+paginate:         5
+
+# Custom vars
+version:          1.0.0
+
+github:
+  repo:           https://github.com/apdunston/apdunston.github.io
+
+plugins: [jekyll-paginate]
