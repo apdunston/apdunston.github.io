@@ -7,4 +7,4 @@ Heading to Chicago to speak at [Agile Testing Days USA](https://agiletestingdays
 
 I hereby present [FLIGHT DELAY](/public/downloads/pico-8/flight_delay/flight_delay.html)!
 
-![alt text](/public/downloads/pico-8/flight_delay/flight_delay.png "Flight Delay Pico-8 Game")
+![alt text](/public/downloads/pico-8/flight_delay/flight_delay.p8.png "Flight Delay Pico-8 Game")
